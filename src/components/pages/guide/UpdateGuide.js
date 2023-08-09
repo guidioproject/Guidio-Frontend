@@ -6,7 +6,7 @@ import Preview from "../../common/editor/Preview";
 import DOMPurify from "dompurify";
 import { useDispatch } from "react-redux";
 import { deleteGuide, updateGuide } from "../../../store/controllers/guideController";
-import { showAndHideMsg } from "../../../store/slices/uiSlice";
+import { showMessage } from "../../../store/slices/uiSlice";
 import { useNavigate } from "react-router-dom";
 import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/constants";
 
@@ -21,7 +21,7 @@ const UpdateGuide = ({ id, guideContent, guideTitle, setIsUpdating, guideNote, p
 
 	function updateGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showAndHideMsg(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
 			return;
 		}
 		dispatch(updateGuide(title, content, id, note, isPublic, () => {

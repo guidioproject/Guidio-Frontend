@@ -10,7 +10,7 @@ import Footer from "./components/layout/Footer"
 import Navbar from "./components/layout/Navbar"
 
 import Home from "./components/pages/home/Home"
-import Profile from "./components/pages/profile/Profile";
+import Profile from "./components/pages/Profile/Profile";
 import Create from "./components/pages/create/Create";
 import Guide from './components/pages/guide/Guide';
 import Instructors from "./components/pages/instructors/Instructors";
@@ -20,7 +20,11 @@ import Register from "./components/pages/auth/Register";
 const App = () => {
 	const dispatch = useDispatch();
 	const { pathname } = useLocation();
+
 	const activeUser = useSelector(state => state.user.activeUser);
+	const isInstructor = activeUser?.userDetails?.isInstructor;
+
+	const showLayout = pathname !== '/auth/login' && pathname !== '/auth/register';
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -39,18 +43,18 @@ const App = () => {
 
 	return (
 		<div>
-			{(pathname !== '/auth/login' && pathname !== '/auth/register') && <Navbar />}
+			{showLayout && <Navbar />}
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/auth/login" element={<Login />} />
 				<Route path="/auth/register" element={<Register />} />
 				<Route path="/profile" element={activeUser ? <Profile /> : <Navigate replace to='/' />} />
-				<Route path="/create" element={activeUser?.userDetails?.isInstructor ?<Create /> : <Navigate replace to='/' />} />
+				<Route path="/create" element={isInstructor ? <Create /> : <Navigate replace to='/' />} />
 				<Route path="/guides/:id" element={ activeUser ? <Guide /> : <Navigate replace to='/auth/register' />} />
 				<Route path="/instructors" element={activeUser ? <Instructors /> : <Navigate replace to='/auth/register' />} />
 				<Route path='/instructors/:id' element={activeUser ? <Profile /> : <Navigate replace to='/auth/register' />} />
 			</Routes>
-			{(pathname !== '/auth/login' && pathname !== '/auth/register') && <Footer />}
+			{showLayout && <Footer />}
 		</div>
 	)
 }

@@ -14,7 +14,7 @@ const Home = () => {
 				<Alert type={MESSAGE_TYPE_SUCCESS} size='fit' msg={successMsg} />
 			</div>
 			{!activeUser && <Header />}
-			<Courses user={activeUser} isSingleuser={false} />
+			<Courses user={activeUser} />
 		</div>
 	);
 };

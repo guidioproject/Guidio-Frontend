@@ -19,7 +19,10 @@ const Header = () => {
 						</h3>
 						<NavLink to='/auth/register' className='bg-success-main text-primary-main text-center font-bold text-3xl
 						py-6 px-10 rounded-3xl self-center mt-20
-						hover:text-light-main hover:shadow-normal-hover hover:shadow-success-main'>Start Creating!</NavLink>
+						hover:text-light-main hover:shadow-normal-hover hover:shadow-success-main'
+						>
+						Start Creating!
+						</NavLink>
 					</div>
 					<div className='self-center'>
 						<img className="block" src={heroImg} alt="Hero" />

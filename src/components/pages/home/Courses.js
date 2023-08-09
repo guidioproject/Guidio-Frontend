@@ -10,7 +10,7 @@ import Search from "./Search";
 import { MESSAGE_ERROR_NO_GUIDES } from "../../../store/constants";
 import Loading from "../../common/Loading";
 
-const Courses = ({ user, isSingleUser }) => {
+const Courses = ({ user, isSingleUser = false }) => {
 	const dispatch = useDispatch();
 	const searchRef = useRef();
 	const { id } = useParams();

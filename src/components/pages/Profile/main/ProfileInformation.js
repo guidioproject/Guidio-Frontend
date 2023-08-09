@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 import { useDispatch } from "react-redux";
 
 import { updateUser } from "../../../../store/controllers/userController";
-import { showAndHideMsg } from "../../../../store/slices/uiSlice";
+import { showMessage } from "../../../../store/slices/uiSlice";
 
 import Avatar from "./Avatar";
 import Profession from "./Profession";
@@ -10,7 +10,7 @@ import Toggle from "../../../common/Toggle";
 import InputGroup from "../common/InputGroup";
 import ButtonGroup from "./ButtonGroup";
 
-const ProfileInformation = ({user}) => {
+const ProfileInformation = ({ user }) => {
 	const dispatch = useDispatch();
 
 	const formRef = useRef({});
@@ -21,12 +21,12 @@ const ProfileInformation = ({user}) => {
 	function updateHandler() {
 		const fields = formRef.current;
 		if (!profId) {
-			dispatch(showAndHideMsg('error', "Select a valid profession!"));
+			dispatch(showMessage('error', "Select a valid profession!"));
 			return;
 		}
 
 		if (fields.firstName.value === "" || fields.lastName.value === "" || fields.email.value === "") {
-			dispatch(showAndHideMsg('error', "Fields can't be empty!"));
+			dispatch(showMessage('error', "Fields can't be empty!"));
 			return;
 		}
 

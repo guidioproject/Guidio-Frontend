@@ -10,8 +10,7 @@ const Navbar = () => {
 	const activeUser = useSelector(state => state.user.activeUser);
 
 	function logoutHandler() {
-		dispatch(logoutUser());
-		navigate("/");
+		dispatch(logoutUser(() => navigate("/")));
 	}
 	return (
 		<div className="flex bg-primary-main py-4 px-20 relative shadow-2xl">

@@ -18,7 +18,7 @@ const uiSlice = createSlice({
 			state.successMsg = action.payload;
 		},
 		setIsLoading(state, action) {
-			state.isLoading = (action.payload);
+			state.isLoading = action.payload;
 		}
 	}
 });
@@ -29,7 +29,7 @@ export default uiSlice;
 
 let timeout;
 
-export const showAndHideMsg = (type, msg) => {
+export const showMessage = (type, msg) => {
 	clearTimeout(timeout);
 	return async dispatch => {
 		if (type === MESSAGE_TYPE_ERROR) {
@@ -53,6 +53,7 @@ export const showAndHideMsg = (type, msg) => {
 
 export const clearMessages = () => {
 	clearTimeout(timeout);
+
 	return async dispatch => {
 		dispatch(uiActions.setError(''));
 		dispatch(uiActions.setSuccess(''));

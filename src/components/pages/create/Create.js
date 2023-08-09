@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createGuide } from "../../../store/controllers/guideController";
-import { showAndHideMsg } from "../../../store/slices/uiSlice";
+import { showMessage } from "../../../store/slices/uiSlice";
 
 import Alert from '../../common/Alert';
 import Editor from "../../common/editor/Editor";
@@ -21,7 +21,7 @@ const Create = () => {
 
 	function createGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showAndHideMsg('error', 'Fields cant be empty!'));
+			dispatch(showMessage('error', 'Fields cant be empty!'));
 			return;
 		}
 		dispatch(createGuide(title, content, note, isPublic, () => navigate('/')));
