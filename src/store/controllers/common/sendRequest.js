@@ -23,6 +23,6 @@ export default async function sendRequest(url, request, body, isFile) {
 	if (!res.ok) {
 		throw data;
 	}
-	
+
 	return data;
 }

@@ -2,7 +2,7 @@ import cardImg from "../../../assets/card_item.png";
 import { FaUser } from "react-icons/fa";
 
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getGuides, getGuidesByUserId } from "../../../store/controllers/guideController";
 
@@ -13,7 +13,6 @@ import Loading from "../../common/Loading";
 const Courses = ({ user, isSingleUser = false }) => {
 	const dispatch = useDispatch();
 	const searchRef = useRef();
-	const { id } = useParams();
 
 	const [activePage, setActivePage] = useState(1);
 
@@ -23,7 +22,7 @@ const Courses = ({ user, isSingleUser = false }) => {
 
 	useEffect(() => {
 		function handleScroll() {
-			if (searchRef.current?.value)
+			if (searchRef.current.value)
 				return;
 
 			const scrolled = document.body.scrollHeight - window.innerHeight;
@@ -35,7 +34,7 @@ const Courses = ({ user, isSingleUser = false }) => {
 				setActivePage(1);
 
 		}
-		if (user && activePage === pages) {
+		if (user && activePage < pages) {
 			window.addEventListener('scroll', handleScroll);
 
 			if (activePage === pages) {
@@ -46,16 +45,12 @@ const Courses = ({ user, isSingleUser = false }) => {
 	}, [activePage, pages, user]);
 
 	useEffect(() => {
-		isSingleUser ? dispatch(getGuidesByUserId(id ? id : user?.userId, 12, activePage)) : dispatch(getGuides(12, activePage))
-	}, [dispatch, isSingleUser, activePage, user?.userId, id]);
+		isSingleUser ? dispatch(getGuidesByUserId(user.userId, activePage)) : dispatch(getGuides(activePage))
+	}, [dispatch, isSingleUser, activePage, user?.userId]);
 
 	return (
-		<div className={`px-20 ${(!isSingleUser && user) && "pt-48 bg-secondary-light"}`}>
-			{(!isSingleUser && user) &&
-				<div className="flex justify-center">
-					{/* <Dropdown title="Popular" items={['New', 'Popular']} /> */}
-					<Search inputRef={searchRef} activePage={activePage} setActivePage={setActivePage} />
-				</div>}
+		<div className={`px-20 ${isSingleUser ? "pt-10" : "pt-48"} bg-bg-main`}>
+			<Search inputRef={searchRef} activePage={activePage} setActivePage={setActivePage} />
 			<h2 className="text-5xl py-10">Recent Guides</h2>
 			{isLoading ? <Loading /> :
 				<div className={`grid ${!isSingleUser ? 'grid-cols-4' : 'grid-cols-3'} w-full gap-5`}>

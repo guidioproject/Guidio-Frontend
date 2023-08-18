@@ -39,6 +39,9 @@ module.exports = {
 			gradient: {
 				white: "#ffffff00",
 				secondary: "#727cf599"
+			},
+			bg: {
+				main: "#e2e8ffa6"
 			}
 		},
 		extend: {

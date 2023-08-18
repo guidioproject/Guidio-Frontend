@@ -7,11 +7,14 @@ import { logoutUser } from "../../store/controllers/authController";
 const Navbar = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
 	const activeUser = useSelector(state => state.user.activeUser);
+	const isInstructor = activeUser?.userDetails?.isInstructor;
 
 	function logoutHandler() {
 		dispatch(logoutUser(() => navigate("/")));
 	}
+
 	return (
 		<div className="flex bg-primary-main py-4 px-20 relative shadow-2xl">
 			<nav className="flex text-light-main w-full gap-10 text-xl items-center">
@@ -19,22 +22,8 @@ const Navbar = () => {
 				<NavLink to="/instructors">Instructors</NavLink>
 			</nav>
 			<Logo />
-			{!activeUser?.userId ? (
-				<div className="flex w-full justify-end gap-5 items-center text-light-main">
-					<NavLink
-						to="/auth/register"
-						className="bg-secondary-main py-[0.6rem] px-5 rounded-md text-lg font-medium hover:bg-secondary-dark"
-					>
-						REGISTER
-					</NavLink>
-					<NavLink
-						to="/auth/login"
-						className="bg-success-main py-[0.6rem] px-5 rounded-md text-lg font-medium hover:bg-success-dark"
-					>
-						LOGIN
-					</NavLink>
-				</div>
-			) : (
+			{activeUser ?
+			(
 				<div className="flex w-full justify-end gap-5 items-center text-light-main relative">
 					<button className="group relative border-x-2 py-3 px-5 rounded-xl text-xl font-semibold">
 						<FaUser className="inline text-primary-main bg-light-main p-1 rounded-[50%] text-3xl mr-2" />
@@ -57,7 +46,9 @@ const Navbar = () => {
 							</NavLink>
 						</div>
 					</button>
-					{activeUser?.userDetails?.isInstructor && <NavLink to='/create' className="bg-secondary-main py-3 px-6 rounded-bl-[50%] rounded-tl-[40%] rounded-br-[40%] rounded-tr-[50%] -skew-y-6 text-lg font-medium hover:bg-secondary-dark flex items-center">
+					{isInstructor &&
+					<NavLink to='/create' className= {`bg-secondary-main py-3 px-6 rounded-bl-[50%] rounded-tl-[40%] rounded-br-[40%] rounded-tr-[50%] -skew-y-6 text-lg font-medium
+					hover:bg-secondary-dark flex items-center`}>
 						<div className="skew-y-6 inline-block">
 							<FaPlus className="inline" /> CREATE
 						</div>
@@ -68,6 +59,21 @@ const Navbar = () => {
 					>
 						LOGOUT
 					</button>
+				</div>
+			) : (
+				<div className="flex w-full justify-end gap-5 items-center text-light-main">
+					<NavLink
+						to="/auth/register"
+						className="bg-secondary-main py-[0.6rem] px-5 rounded-md text-lg font-medium hover:bg-secondary-dark"
+					>
+						REGISTER
+					</NavLink>
+					<NavLink
+						to="/auth/login"
+						className="bg-success-main py-[0.6rem] px-5 rounded-md text-lg font-medium hover:bg-success-dark"
+					>
+						LOGIN
+					</NavLink>
 				</div>
 			)}
 		</div>

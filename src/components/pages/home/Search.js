@@ -4,18 +4,18 @@ import { getGuides, searchGuides } from "../../../store/controllers/guideControl
 
 let timeout;
 const Search = ({ inputRef, activePage, setActivePage }) => {
+
 	const dispatch = useDispatch();
+
 	function handleSearch(event) {
 		clearTimeout(timeout);
-
-
 
 		timeout = setTimeout(() => {
 			if (event.target.value)
 				dispatch(searchGuides(event.target.value));
 			else {
 				setActivePage(1);
-				dispatch(getGuides(12, activePage));
+				dispatch(getGuides(activePage));
 			}
 			timeout = null;
 		}, 500);

@@ -3,11 +3,11 @@ import sendRequest from "../controllers/common/sendRequest";
 import { guideActions } from "../slices/guideSlice";
 import { showMessage, uiActions } from "../slices/uiSlice";
 
-export const getGuides = function (pageSize, page) {
+export const getGuides = function (page) {
 	return async dispatch => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
-			const data = await sendRequest(`/guides?page=${page}&page_size=${pageSize}`, 'GET');
+			const data = await sendRequest(`/guides?page=${page}&page_size=12`, 'GET');
 			dispatch(uiActions.setIsLoading(false));
 			if (page === 1)
 				dispatch(guideActions.setGuides({ pages: data.pages, guides: data.guides }));
@@ -35,11 +35,11 @@ export const searchGuides = function (title) {
 	}
 }
 
-export const getGuidesByUserId = (id, pageSize, page, cb) => {
+export const getGuidesByUserId = (id, page, cb) => {
 	return async dispatch => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
-			const data = await sendRequest(`/guides/${id}?page=${page}&page_size=${pageSize}`, 'GET');
+			const data = await sendRequest(`/guides/${id}?page=${page}&page_size=12`, 'GET');
 			dispatch(uiActions.setIsLoading(false));
 			if (page === 1)
 				dispatch(guideActions.setGuides({ pages: data.pages, guides: data.guides }));
