@@ -13,7 +13,7 @@ const FeaturedGuides = ({ userId }) => {
 	const { isLoading } = useSelector(state => state.ui);
 	useEffect(() => {
 		if (userId) {
-			dispatch(getGuidesByUserId(userId, 5, 1, () => dispatch(guideActions.filterActiveGuide())));
+			dispatch(getGuidesByUserId(userId, 1, () => dispatch(guideActions.filterActiveGuide())));
 		}
 	}, [userId, dispatch]);
 
