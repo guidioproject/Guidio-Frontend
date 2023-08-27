@@ -50,9 +50,9 @@ const App = () => {
 				<Route path="/auth/register" element={<Register />} />
 				<Route path="/profile" element={activeUser ? <Profile /> : <Navigate replace to='/' />} />
 				<Route path="/create" element={isInstructor ? <Create /> : <Navigate replace to='/' />} />
-				<Route path="/guides/:id" element={ activeUser ? <Guide /> : <Navigate replace to='/auth/register' />} />
-				<Route path="/instructors" element={activeUser ? <Instructors /> : <Navigate replace to='/auth/register' />} />
-				<Route path='/instructors/:id' element={activeUser ? <Profile /> : <Navigate replace to='/auth/register' />} />
+				<Route path="/guides/:id" element={ activeUser ? <Guide /> : <Navigate replace to='/' />} />
+				<Route path="/instructors" element={activeUser ? <Instructors /> : <Navigate replace to='/' />} />
+				<Route path='/instructors/:id' element={activeUser ? <Profile /> : <Navigate replace to='/' />} />
 			</Routes>
 			{showLayout && <Footer />}
 		</div>

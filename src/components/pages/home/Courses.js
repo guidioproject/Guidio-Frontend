@@ -50,7 +50,7 @@ const Courses = ({ user, isSingleUser = false }) => {
 
 	return (
 		<div className={`px-20 ${isSingleUser ? "pt-10" : "pt-48"} bg-bg-main`}>
-			<Search inputRef={searchRef} activePage={activePage} setActivePage={setActivePage} />
+			{user && <Search inputRef={searchRef} activePage={activePage} setActivePage={setActivePage} />}
 			<h2 className="text-5xl py-10">Recent Guides</h2>
 			{isLoading ? <Loading /> :
 				<div className={`grid ${!isSingleUser ? 'grid-cols-4' : 'grid-cols-3'} w-full gap-5`}>

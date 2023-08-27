@@ -87,8 +87,8 @@ export const getGuideById = function (id) {
 		try {
 			dispatch(uiActions.setIsLoading(true));
 			const { title, content, guideId, user, note, published, lastModified } = await sendRequest(`/guides/guide/${id}`, 'GET');
-			dispatch(uiActions.setIsLoading(false));
 			dispatch(guideActions.setActiveGuide({ title: `# ${title}`, content, guideId, user, note, published, lastModified }));
+			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
 			dispatch(guideActions.setActiveGuide({}));
 			dispatch(uiActions.setIsLoading(false));
