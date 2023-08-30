@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa"
 import { useDispatch } from "react-redux";
-import { getGuides, searchGuides } from "../../../store/controllers/guideController";
+import { getGuides, searchGuides } from "../../store/controllers/guideController";
 
 let timeout;
 const Search = ({ inputRef, activePage, setActivePage }) => {

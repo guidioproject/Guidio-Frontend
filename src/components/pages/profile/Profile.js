@@ -6,7 +6,7 @@ import Menu from "./main/Menu";
 import Alert from "../../common/Alert";
 import ChangePassword from "./main/ChangePassword";
 import ProfileInformation from "./main/ProfileInformation";
-import Courses from "../home/Courses";
+import Guides from "../../common/guides/Guides";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../../../store/controllers/userController";
 
@@ -44,7 +44,7 @@ const Profile = () => {
 				</div>
 				{(!id && activeTab === 0) && <ProfileInformation user={user} />}
 				{(!id && activeTab === 1) && <ChangePassword user={user} />}
-				{(user && activeTab === 2) && <Courses isSingleUser={true} user={user} />}
+				{(user && activeTab === 2) && <Guides isSingleUser={true} user={user} />}
 			</div>
 		</main>
 	);

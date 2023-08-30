@@ -8,6 +8,7 @@ export const getGuides = function (page) {
 		try {
 			dispatch(uiActions.setIsLoading(true));
 			const data = await sendRequest(`/guides?page=${page}&page_size=12`, 'GET');
+			await new Promise((res) => {setTimeout(() =>{res()}, 1000)});
 			dispatch(uiActions.setIsLoading(false));
 			if (page === 1)
 				dispatch(guideActions.setGuides({ pages: data.pages, guides: data.guides }));
@@ -40,6 +41,7 @@ export const getGuidesByUserId = (id, page, cb) => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
 			const data = await sendRequest(`/guides/${id}?page=${page}&page_size=12`, 'GET');
+			await new Promise((res) => {setTimeout(() =>{res()}, 1000)});
 			dispatch(uiActions.setIsLoading(false));
 			if (page === 1)
 				dispatch(guideActions.setGuides({ pages: data.pages, guides: data.guides }));

@@ -1,4 +1,4 @@
-import Courses from "./Courses";
+import Courses from "../../common/guides/Guides";
 import Header from "./Header";
 import Alert from '../../common/Alert';
 
