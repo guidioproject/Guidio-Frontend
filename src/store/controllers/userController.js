@@ -86,6 +86,7 @@ export const getInstructors = () => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
 			const data = await sendRequest('/users/instructors', 'GET');
+			await new Promise(res => setTimeout(() =>{res()}, 1000));
 			dispatch(uiActions.setIsLoading(false));
 			dispatch(userActions.setInstructors(data));
 		} catch (err) {

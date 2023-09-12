@@ -1,8 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo.png';
+import logo from '../../../assets/logo.png';
 
 const Logo = ({ inFooter = false }) => {
-
 
 	return (
 		<NavLink  to='/' className={`
