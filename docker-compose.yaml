@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build: .
+    networks:
+      - guidio_network
+    ports:
+      - "80:80"
+
+networks:
+  guidio_network:
+    name: guidio_network
