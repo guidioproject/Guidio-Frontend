@@ -27,7 +27,7 @@ const App = () => {
 	const showLayout = !pathname.startsWith('/auth');
 
 	useEffect(() => {
-		const shouldClearMessages = pathname.startsWith('/auth') || pathname === '/profile' || pathname === '/create';
+		const shouldClearMessages = pathname.startsWith('/auth') || pathname === '/profile' || pathname === '/create' || pathname.startsWith('/guides');
 
 		showLayout && window.scrollTo(0, 0);
 		shouldClearMessages && dispatch(clearMessages());

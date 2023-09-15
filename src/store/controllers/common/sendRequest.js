@@ -1,28 +1,23 @@
-export default async function sendRequest(url, request, body, isFile) {
+export const sendRequest =  async(url, request, body, isFile) => {
 	if (!isFile) {
 		body = JSON.stringify(body);
 	}
-	const res = await fetch(url, {
-		method: request,
-		headers: !isFile ? {
-			'Accept': "application/json",
-			'Content-Type': 'application/json'
-		} : undefined,
-		body: body || undefined
-	});
-	if (request === 'DELETE') {
+		const res = await fetch(url, {
+			method: request,
+			headers: !isFile ? {
+				'Accept': "application/json",
+				'Content-Type': 'application/json'
+			} : undefined,
+			body: body || undefined
+		});
+		if (res.status === 500)
+			throw new Error('Error',  {cause: {message: res.statusText, status: res.status}});
+
+		const data = await res.json();
+
 		if (!res.ok)
-			throw res.statusText;
+			throw Error('Error', {cause: {message: {...data}, status: res.status}});
 
-		if (res.status === 204)
-			return true;
-	}
-
-	const data = await res.json();
-
-	if (!res.ok) {
-		throw data;
-	}
-
-	return data;
+		return data;
 }
+

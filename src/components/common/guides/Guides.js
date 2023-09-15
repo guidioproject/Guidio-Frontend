@@ -47,6 +47,8 @@ const Guides = ({ user, isSingleUser = false }) => {
 			isSingleUser ? dispatch(getGuidesByUserId(user.userId, activePage)) : dispatch(getGuides(activePage))
 	}, [dispatch, isSingleUser, activePage, user]);
 
+	useEffect(() => setActivePage(1), [user]);
+
 	return (
 		<div className={` ${isSingleUser ? "pt-10" : "px-20 pt-48 bg-bg-main"}`}>
 			{user && <Search inputRef={searchRef} setActivePage={setActivePage} isSingleUser={isSingleUser} />}

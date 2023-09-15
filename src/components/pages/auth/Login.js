@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "./common/Form";
 import { loginUser } from "../../../store/controllers/authController";
 import Alert from "../../common/Alert";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR} from "../../../store/constants";
+import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/constants";
 import InputGroup from "./common/InputGroup";
 
 const Login = () => {
@@ -26,13 +26,8 @@ const Login = () => {
 			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
 			return false;
 		}
-		dispatch(
-			loginUser(
-				{
-					email: email.value,
-					password: password.value,
-				},
-				() => navigate("/")));
+		dispatch(loginUser({ email: email.value, password: password.value },
+		() => navigate('/')));
 	}
 
 	return (

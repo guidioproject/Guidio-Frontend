@@ -2,7 +2,7 @@ import { MESSAGE_ERROR_UNEXPECTED, MESSAGE_SUCCESS_ACCOUNT_DELETE, MESSAGE_SUCCE
 import { showMessage, uiActions } from "../slices/uiSlice";
 import { userActions } from "../slices/userSlice";
 import { logoutUser } from "./authController";
-import sendRequest from "./common/sendRequest";
+import { sendRequest } from "./common/sendRequest";
 
 export const deleteUser = (id, cb) => {
 	return async (dispatch) => {
@@ -86,11 +86,11 @@ export const getInstructors = () => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
 			const data = await sendRequest('/users/instructors', 'GET');
-			await new Promise(res => setTimeout(() =>{res()}, 500));
+			await new Promise(res => setTimeout(() => { res() }, 500));
 			dispatch(uiActions.setIsLoading(false));
 			dispatch(userActions.setInstructors(data));
 		} catch (err) {
-			await new Promise(res => setTimeout(() =>{res()}, 500));
+			await new Promise(res => setTimeout(() => { res() }, 500));
 			dispatch(uiActions.setIsLoading(false));
 		}
 	}
