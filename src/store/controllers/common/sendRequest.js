@@ -20,4 +20,3 @@ export const sendRequest =  async(url, request, body, isFile) => {
 
 		return data;
 }
-

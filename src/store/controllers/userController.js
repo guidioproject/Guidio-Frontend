@@ -1,7 +1,7 @@
 import { MESSAGE_ERROR_UNEXPECTED, MESSAGE_SUCCESS_ACCOUNT_DELETE, MESSAGE_SUCCESS_PW_CHANGE, MESSAGE_SUCCESS_USER_UPDATE, MESSAGE_TYPE_ERROR, MESSAGE_TYPE_SUCCESS } from "../constants";
 import { showMessage, uiActions } from "../slices/uiSlice";
 import { userActions } from "../slices/userSlice";
-import { logoutUser } from "./authController";
+import { getUserByToken, logoutUser } from "./authController";
 import { sendRequest } from "./common/sendRequest";
 
 export const deleteUser = (id, cb) => {
@@ -12,7 +12,10 @@ export const deleteUser = (id, cb) => {
 			cb();
 			dispatch(showMessage(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_ACCOUNT_DELETE));
 		} catch (error) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	};
 };
@@ -23,8 +26,11 @@ export const updateUser = (id, formData) => {
 			const newUser = await sendRequest(`/users/${id}`, "PUT", formData);
 			dispatch(userActions.setUser(newUser));
 			dispatch(showMessage(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_USER_UPDATE));
-		} catch (err) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	};
 };
@@ -35,8 +41,11 @@ export const changePassword = (id, formData) => {
 			await sendRequest(`/users/${id}/update_password`, "PUT", formData);
 			dispatch(logoutUser());
 			dispatch(showMessage(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_PW_CHANGE));
-		} catch (err) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, err.detail[0].msg));
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, error.cause.detail[0].msg));
 		}
 	};
 };
@@ -49,8 +58,11 @@ export const getProfessionByName = (name) => {
 				"GET"
 			);
 			dispatch(userActions.updateProfessions(data));
-		} catch (err) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	};
 };
@@ -60,8 +72,11 @@ export const uploadImage = (file, type) => {
 		try {
 			const data = await sendRequest(`/users/${type}`, 'POST', file, true);
 			dispatch(userActions.setUser(data));
-		} catch (err) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	}
 }
@@ -75,8 +90,11 @@ export const deleteImage = (type, cb) => {
 				dispatch(userActions.removeAvatarImage());
 			else
 				dispatch(userActions.removeCoverImage());
-		} catch (err) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	}
 }
@@ -89,7 +107,9 @@ export const getInstructors = () => {
 			await new Promise(res => setTimeout(() => { res() }, 500));
 			dispatch(uiActions.setIsLoading(false));
 			dispatch(userActions.setInstructors(data));
-		} catch (err) {
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
 			await new Promise(res => setTimeout(() => { res() }, 500));
 			dispatch(uiActions.setIsLoading(false));
 		}
@@ -101,8 +121,11 @@ export const getUserById = id => {
 		try {
 			const data = await sendRequest(`/users/${id}`, 'GET');
 			dispatch(userActions.setPreviewedUser(data));
-		} catch (err) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	}
 }

@@ -13,12 +13,15 @@ export const loginUser = function (formData, cb) {
 			dispatch(showMessage(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_LOGIN));
 		} catch (err) {
 			const {status} = err.cause;
-			if (status === 500)
-				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
-			else if (status === 422)
+			if (status === 422) {
 				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_WRONG_EMAIL));
-			else if (status === 401)
+				return;
+			}
+			else if (status === 401) {
 				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_LOGIN))
+				return;
+			}
+			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	};
 };
@@ -43,15 +46,20 @@ export const registerUser = function (formData, cb) {
 			cb();
 			dispatch(showMessage(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_REGISTER));
 		} catch (err) {
-			const { type, msg } = err.cause.detail.at(-1);
+			const status = err.cause.status;
+			if (status === 422) {
+				const { type, msg } = err.cause.message.detail.at(-1);
+				if (REGISTER_ERRORS[type])
+					dispatch(showMessage(MESSAGE_TYPE_ERROR, REGISTER_ERRORS[type]));
 
-			if (REGISTER_ERRORS[type])
-				dispatch(showMessage(MESSAGE_TYPE_ERROR, REGISTER_ERRORS[type]));
+				if (type === "value_error")
+					dispatch(showMessage(MESSAGE_TYPE_ERROR, `Error! ${msg}`));
 
-			if (type === "value_error")
-				dispatch(showMessage(MESSAGE_TYPE_ERROR, `Error! ${msg}`));
-
-			if (!type) dispatch(showMessage(MESSAGE_TYPE_ERROR, `Error! ${err.detail}`));
+				if (!type)
+					dispatch(showMessage(MESSAGE_TYPE_ERROR, `Error! ${err.detail}`));
+				return;
+			}
+			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	};
 };
@@ -61,11 +69,9 @@ export const getUserByToken = function () {
 		try {
 			const data = await sendRequest("/auth/token", "GET");
 			dispatch(userActions.setUser(data));
-			return true;
 		} catch (err) {
 			dispatch(userActions.setUser(null));
 			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_SESSION_EXPIRED));
-			return false;
 		}
 	};
 };
