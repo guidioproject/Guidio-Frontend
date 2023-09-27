@@ -15,11 +15,11 @@ const Guide = ({guide}) => {
 		</div>
 	</div>
 	<div className="flex items-center gap-2 px-2 py-4 shadow-secondary-main shadow-normal bg-light-main rounded-b-3xl">
-		{guide.user.userDetails?.avatar ?
-			<img src={`/${guide.user.userDetails.avatar}`} className="w-16 rounded-[50%]" alt="Avatar" /> :
+		{guide.user.avatar ?
+			<img src={`/${guide.user.avatar}`} className="w-16 rounded-[50%]" alt="Avatar" /> :
 			<FaUser className="rounded-[50%] bg-success-main text-6xl p-1" />}
 		<p className="text-lg font-semibold">{`${guide.user.firstName} ${guide.user.lastName}`} |</p>
-		<span className="italic">{guide.user.userDetails?.profession?.name}</span>
+		<span className="italic">{guide.user.profession}</span>
 	</div>
 </NavLink>
   )
