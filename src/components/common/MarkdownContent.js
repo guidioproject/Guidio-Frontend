@@ -4,7 +4,9 @@ import * as styles from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize'
-import { useSelector } from "react-redux";
+
+import {useSelector } from "react-redux";
+
 import Loading from "./Loading";
 
 const MarkdownContent = ({ content, className = "" }) => {

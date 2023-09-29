@@ -1,80 +1,44 @@
-import { useRef } from 'react';
-import { FaBold, FaCode, FaHeading, FaImage, FaItalic, FaLink, FaListOl, FaListUl, FaStrikethrough } from 'react-icons/fa';
+import { useRef, useState } from 'react';
+
+import EditorMenu from './EditorMenu';
+import MarkdownContent from '../MarkdownContent';
 
 const Editor = ({ setContent, setTitle, setNote, title, value, note }) => {
-	const elsRef = useRef({});
 	const contentRef = useRef();
-
-	function handleEl(el) {
-		const val = elsRef.current[el].value;
-		contentRef.current.focus();
-		contentRef.current.value += val;
-
-		if (val === "****") {
-			contentRef.current.setSelectionRange(contentRef.current.selectionStart -2, contentRef.current.selectionStart - 2);
-		}
-
-		if (val === "__" || val === "~~" || val === "``") {
-			contentRef.current.setSelectionRange(contentRef.current.selectionStart -1, contentRef.current.selectionStart - 1);
-		}
-
-		if (val === "[](url)" || val === "![](url)") {
-			contentRef.current.setSelectionRange(contentRef.current.selectionStart -6, contentRef.current.selectionStart - 6);
-		}
-	}
+	const [isPreview, setIsPreview] = useState(false);
 	return (
-		<div className="w-full h-[70vh]">
-			<div className="flex flex-col gap-5 h-full p-6 rounded bg-secondary-dark2 border-4 border-secondary-main overflow-auto">
-				<input
-					type="text"
-					className="rounded bg-light-main p-2 text-lg border-4 border-secondary-main"
-					placeholder="Title"
-					onChange={setTitle}
-					value={title}
-					autoFocus
-				/>
-				<div className='flex justify-start gap-5 py-2 px-2 bg-secondary-main rounded'>
-					<span ref={el => elsRef.current.heading = { el, value: "## " }} onClick={handleEl.bind(this, "heading")}>
-						<FaHeading className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.bold = { el, value: "****" }} onClick={handleEl.bind(this, "bold")}>
-						<FaBold className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.italic = { el, value: "__" }} onClick={handleEl.bind(this, "italic")}>
-						<FaItalic className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.strike = { el, value: "~~" }} onClick={handleEl.bind(this, "strike")}>
-						<FaStrikethrough className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.code = { el, value: "``" }} onClick={handleEl.bind(this, "code")}>
-						<FaCode className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.link = { el, value: "[](url)" }} onClick={handleEl.bind(this, "link")}>
-						<FaLink className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.image = { el, value: "![](url)" }} onClick={handleEl.bind(this, "image")}>
-						<FaImage className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.ul = { el, value: "- " }} onClick={handleEl.bind(this, "ul")}>
-						<FaListUl className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-					<span ref={el => elsRef.current.ol = { el, value: "1. " }} onClick={handleEl.bind(this, "ol")}>
-						<FaListOl className='text-2xl hover:bg-light-main rounded p-1 hover:cursor-pointer' />
-					</span>
-				</div>
+		<div className="w-full h-[60vh] flex gap-5">
+			<div className="flex flex-col gap-5 h-full w-[70%] rounded bg-success-contrastText shadow-normal shadow-secondary-main overflow-auto">
+				<EditorMenu contentRef={contentRef} setIsPreview={setIsPreview} isPreview={isPreview} />
+				{isPreview ?
+					<MarkdownContent content={`# ${title}\n${value}`} />
+					:
+					<div className='flex flex-col gap-5 h-full p-6'>
+						<input
+							type="text"
+							className="rounded p-2 text-lg border-2 border-secondary-main"
+							placeholder="Title"
+							onChange={setTitle}
+							value={title}
+							autoFocus
+						/>
+						<textarea
+							placeholder="Start creating..."
+							className="resize-none h-[100%] rounded bg-light-main p-2 border-2 border-secondary-main"
+							onChange={setContent}
+							ref={contentRef}
+							value={value}
+						/>
+					</div>
+				}
+			</div>
+			<div className="h-full p-6 pb-20 rounded bg-secondary-dark2 border-2 border-secondary-main flex-grow">
+				<h2 className='text-2xl text-light-main mb-5'>Notes</h2>
 				<textarea
-					placeholder="Start creating..."
-					className="resize-none h-[100%] rounded bg-light-main p-2 border-4 border-secondary-main"
-					onChange={setContent}
-					ref={contentRef}
-					value={value}
-				/>
-				<h3 className='text-xl text-light-main'>Notes</h3>
-				<textarea
-				placeholder='Enter a note...'
-				value={note}
-				onChange={setNote}
-				className="resize-none h-[50%] rounded bg-light-main p-2 border-4 border-secondary-main" />
+					placeholder='Enter a note...'
+					value={note}
+					onChange={setNote}
+					className="resize-none w-full h-full rounded overflow-auto bg-light-main p-2 border-4 border-secondary-main" />
 			</div>
 		</div>
 	);

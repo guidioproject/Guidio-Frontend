@@ -152,9 +152,8 @@ export const deleteGuide = (id, cb) => {
 			cb();
 			dispatch(showMessage(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_GUIDE_DELETE))
 		} catch (err) {
-			if (err.status === 401)
+			if (err.cause.status === 401)
 				dispatch(getUserByToken());
-
 			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_GUIDE_DELETE));
 		}
 	};

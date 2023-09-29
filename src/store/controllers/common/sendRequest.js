@@ -13,6 +13,13 @@ export const sendRequest =  async(url, request, body, isFile) => {
 		if (res.status === 500)
 			throw new Error('Error',  {cause: {message: res.statusText, status: res.status}});
 
+		if (request === 'DELETE') {
+			if (res.status === 204)
+				return true;
+			else
+				throw new Error('Error', {cause: {message: res.statusText, status: res.status}});
+		}
+
 		const data = await res.json();
 
 		if (!res.ok)
