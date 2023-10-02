@@ -16,8 +16,10 @@ const Editor = ({ setContent, setTitle, setNote, title, value, note }) => {
 			const cursosPos = el.selectionStart;
 			const currentPos = getPreviousLineFirstChar(el);
 
-			if (el.value[currentPos] === '-')
+			if (el.value[currentPos] === '-') {
 				char = "- ";
+
+			}
 
 			if (Number.isInteger(Number(el.value[currentPos])))
 				char = handleOl(el);
@@ -29,6 +31,8 @@ const Editor = ({ setContent, setTitle, setNote, title, value, note }) => {
 				const afterVal = el.value.slice(cursosPos);
 
 				el.value = beforeVal + "\n" + char + afterVal;
+
+				el.setSelectionRange(cursosPos + char.length + 1, cursosPos + char.length + 1);
 			}
 		}
 	}
