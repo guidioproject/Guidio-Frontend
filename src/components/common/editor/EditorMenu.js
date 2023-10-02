@@ -6,21 +6,32 @@ const EditorMenu = ({ contentRef, setIsPreview, isPreview }) => {
 	const elsRef = useRef({});
 
 	function handleEl(el) {
-		const val = elsRef.current[el].value;
 		contentRef.current.focus();
-		contentRef.current.value += val;
+		const elementVal = elsRef.current[el].value;
+		const content = contentRef.current.value;
+		const cursosPos = contentRef.current.selectionStart;
 
-		if (val === "****") {
-			contentRef.current.setSelectionRange(contentRef.current.selectionStart - 2, contentRef.current.selectionStart - 2);
-		}
 
-		if (val === "__" || val === "~~" || val === "``") {
-			contentRef.current.setSelectionRange(contentRef.current.selectionStart - 1, contentRef.current.selectionStart - 1);
-		}
+		const beforeAdd = content.slice(0, cursosPos);
+		const afterAdd = content.slice(cursosPos);
 
-		if (val === "[](url)" || val === "![](url)") {
-			contentRef.current.setSelectionRange(contentRef.current.selectionStart - 6, contentRef.current.selectionStart - 6);
-		}
+		contentRef.current.value = beforeAdd + elementVal + afterAdd;
+
+		if (elementVal === "## " || elementVal === "1. ")
+			contentRef.current.setSelectionRange(cursosPos + 3, cursosPos + 3);
+
+		if (elementVal === "- " || elementVal === "****")
+			contentRef.current.setSelectionRange(cursosPos + 2, cursosPos + 2);
+
+		if (elementVal === "__" || elementVal === "~~" || elementVal === "``")
+			contentRef.current.setSelectionRange(cursosPos + 1, cursosPos + 1);
+
+		if (elementVal === "[](url)")
+			contentRef.current.setSelectionRange(cursosPos + 3, cursosPos + 6);
+
+		if (elementVal === "![](url)")
+			contentRef.current.setSelectionRange(cursosPos + 4, cursosPos + 7);
+
 	}
 
 	return (

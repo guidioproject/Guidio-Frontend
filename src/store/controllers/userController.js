@@ -1,7 +1,7 @@
 import { MESSAGE_ERROR_UNEXPECTED, MESSAGE_SUCCESS_ACCOUNT_DELETE, MESSAGE_SUCCESS_PW_CHANGE, MESSAGE_SUCCESS_USER_UPDATE, MESSAGE_TYPE_ERROR, MESSAGE_TYPE_SUCCESS } from "../constants";
 import { showMessage, uiActions } from "../slices/uiSlice";
 import { userActions } from "../slices/userSlice";
-import { getUserByToken, logoutUser } from "./authController";
+import { getUserByToken } from "./authController";
 import { sendRequest } from "./common/sendRequest";
 
 export const deleteUser = (id, cb) => {
@@ -39,13 +39,14 @@ export const changePassword = (id, formData) => {
 	return async (dispatch) => {
 		try {
 			await sendRequest(`/users/${id}/update_password`, "PUT", formData);
-			dispatch(logoutUser());
 			dispatch(showMessage(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_PW_CHANGE));
 		} catch (error) {
-			if (error.cause.status === 401)
-				dispatch(getUserByToken());
+			if (error.cause.status === 422)
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, error.cause.message.detail[0].msg));
+			else if (error.cause.status === 400)
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, error.cause.message.detail));
 			else
-				dispatch(showMessage(MESSAGE_TYPE_ERROR, error.cause.detail[0].msg));
+				dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
 		}
 	};
 };

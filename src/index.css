@@ -35,12 +35,23 @@ input, textarea {
 	margin: 1rem;
 }
 
+.markdown ol {
+	list-style-position: inside;
+	list-style-type: auto;
+}
+
 .markdown p, .markdown li {
 	margin-bottom: 1rem;
-	font-size: 1.25rem;
+	font-size: 1rem;
 	letter-spacing: 1px;
 }
 
 .markdown hr {
 	margin: 1rem 0;
+}
+
+.markdown a {
+	font-weight: bold;
+	color: theme('colors.secondary.main');
+	border-bottom: 3px solid theme('colors.secondary.main');
 }

@@ -30,7 +30,7 @@ const MarkdownContent = ({ content, className = "" }) => {
 											{children}
 										</SyntaxHighlighter>
 									) : (
-										<code className={className + " bg-gray-main p-1 rounded text-light-main"} {...props}>
+										<code className={className + " bg-gray-main rounded text-light-main"} {...props}>
 											{children}
 										</code>
 									);
