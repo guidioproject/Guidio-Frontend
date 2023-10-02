@@ -37,7 +37,7 @@ const Editor = ({ setContent, setTitle, setNote, title, value, note }) => {
 		}
 	}
 	return (
-		<div className="w-full h-[60vh] flex gap-5">
+		<div className="w-full h-[70vh] flex gap-5">
 			<div className="flex flex-col gap-5 h-full w-[70%] rounded bg-success-contrastText shadow-normal shadow-secondary-main overflow-auto">
 				<EditorMenu contentRef={contentRef} setIsPreview={setIsPreview} isPreview={isPreview} />
 				{isPreview ?

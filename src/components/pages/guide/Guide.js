@@ -23,9 +23,9 @@ const Guide = () => {
 					guideNote={activeGuide.note}
 					published={activeGuide.published} />
 				:
-				<GuideContent 
-				id={id} 
-				activeGuide={activeGuide} 
+				<GuideContent
+				id={id}
+				activeGuide={activeGuide}
 				activeUser={activeUser}
 				setIsUpdating={setIsUpdating} />
 			}
