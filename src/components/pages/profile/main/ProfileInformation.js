@@ -6,7 +6,7 @@ import { showMessage } from "../../../../store/slices/uiSlice";
 
 import Avatar from "./Avatar";
 import Profession from "./Profession";
-import Toggle from "../../../common/Toggle";
+import InstructorToggle from "./InstructorToggle";
 import InputGroup from "../common/InputGroup";
 import ButtonGroup from "./ButtonGroup";
 
@@ -55,7 +55,7 @@ const ProfileInformation = ({ user }) => {
 					setProfId={setprofId}
 					defaultValue={user.userDetails?.profession?.name}
 				/>
-				<Toggle isChecked={isInstructor} setChecked={() => setIsInstructor(prev => !prev)} />
+				<InstructorToggle isInstructor={isInstructor} setIsInstructor={setIsInstructor} />
 				<InputGroup
 					text="Bio"
 					color="secondary"

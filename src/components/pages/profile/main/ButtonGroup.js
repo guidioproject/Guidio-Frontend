@@ -10,7 +10,7 @@ const ButtonGroup = ({ onUpdate }) => {
 		dispatch(deleteUser(id, () => navigate('/')));
 	}
 	return (
-		<div className="flex justify-between items-end absolute bottom-5 w-full">
+		<div className="flex justify-between items-end w-full">
 			<button className="block bg-danger-dark text-light-main py-2 px-4 rounded-md text-lg font-medium"
 			onClick={deleteHandler}>
 				Delete Account

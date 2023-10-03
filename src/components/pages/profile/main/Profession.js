@@ -30,7 +30,7 @@ const Profession = ({ defaultValue, setProfId }) => {
 	}
 
 	return (
-		<div className="relative mb-20">
+		<div className="relative mb-10">
 			<InputGroup
 				color="secondary"
 				type="dropdown"
