@@ -55,7 +55,7 @@ const ProfileInformation = ({ user }) => {
 					setProfId={setprofId}
 					defaultValue={user.userDetails?.profession?.name}
 				/>
-				<InstructorToggle isInstructor={isInstructor} setIsInstructor={setIsInstructor} />
+				<InstructorToggle isInstructor={isInstructor} setIsInstructor={setIsInstructor} originalIsInstructor = {user?.userDetails?.isInstructor} />
 				<InputGroup
 					text="Bio"
 					color="secondary"
