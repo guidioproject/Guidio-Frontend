@@ -36,18 +36,21 @@ export const getGuides = function (page) {
 	}
 }
 
-export const searchGuides = function (title) {
+export const searchGuides = function (title, page) {
 	return async dispatch => {
 		try {
 			dispatch(guideActions.setError(null));
-			dispatch(guideActions.setGuides({}));
+			page === 1 && dispatch(guideActions.setGuides({}));
 			dispatch(uiActions.setIsLoading(true));
 
-			const data = await sendRequest(`/guides/search?title=${title}&page=1&page_size=12`, 'GET');
+			const data = await sendRequest(`/guides/search?title=${title}&page=${page}&page_size=12`, 'GET');
 			await new Promise((res) => { setTimeout(() => { res() }, 500) });
 
 			dispatch(uiActions.setIsLoading(false));
-			dispatch(guideActions.setGuides({ pages: data.pages, guides: data.guides }));
+			if (page === 1)
+				dispatch(guideActions.setGuides({ pages: data.pages, guides: data.guides }));
+			if (page > 1)
+				dispatch(guideActions.updateGuides(data.guides));
 		} catch (err) {
 			await new Promise((res) => { setTimeout(() => { res() }, 500) });
 

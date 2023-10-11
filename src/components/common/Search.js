@@ -1,27 +1,25 @@
 import { FaSearch } from "react-icons/fa"
-import { useDispatch } from "react-redux";
-import { searchGuides } from "../../store/controllers/guideController";
 
 let timeout;
-const Search = ({ inputRef, setActivePage, isSingleUser }) => {
-
-	const dispatch = useDispatch();
+const Search = ({ inputRef, setIsSearch, setActivePage }) => {
 
 	function handleSearch(event) {
 		clearTimeout(timeout);
 
 		timeout = setTimeout(() => {
-			if (event.target.value) {
-				dispatch(searchGuides(event.target.value));
-				setActivePage(0);
-			}
+			setActivePage(1);
+
+			if (event.target.value)
+				setIsSearch(true);
 			else
-				setActivePage(1);
+				setIsSearch(false);
+
 			timeout = null;
 		}, 500);
 	}
+
 	return (
-		<div className={`flex gap-5 items-center rounded-3xl text-2xl ${isSingleUser ? "w-2/3" : "w-1/2"} bg-light-main px-5 m-auto
+		<div className={`flex gap-5 items-center rounded-3xl text-2xl w-1/2 bg-light-main px-5 m-auto
 						shadow-normal shadow-secondary-main
 						focus-within:shadow-normal-focused focus-within:shadow-secondary-main`}>
 			<FaSearch className="text-dark-main" />
