@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
 
 import Search from "./Search";
-import Loading from "./Loading";
-import ErrorMessage from "./ErrorMessage";
+import Loading from "../Loading";
+import ErrorMessage from "../ErrorMessage";
 
-const List = ({ children, user, title, onSearch, onLoad, items, errorMsg, pages }) => {
-	const searchRef = useRef();
+const List = ({ children, className = '', user, title, onSearch, onLoad, items, errorMsg, pages }) => {
 
+	const [searchVal, setSearchVal] = useState('');
 	const [activePage, setActivePage] = useState(1);
-	const [isSearch, setIsSearch] = useState(false);
 
 	const { isLoading } = useSelector(state => state.ui);
 
@@ -28,15 +27,27 @@ const List = ({ children, user, title, onSearch, onLoad, items, errorMsg, pages 
 	}, [activePage, pages]);
 
 	useEffect(() => {
-		isSearch ? onSearch(searchRef.current.value, activePage) : onLoad(activePage)
-	}, [onLoad, onSearch, activePage, isSearch]);
+		const timeout = setTimeout(() => {
+			if (searchVal) {
+				onSearch(searchVal, activePage);
+			} else {
+				onLoad(activePage);
+			}
+		}, 500);
+
+		return () => clearTimeout(timeout);
+	}, [onLoad, onSearch, activePage, searchVal]);
+
+	useEffect(() => {
+		setActivePage(1);
+	}, [searchVal]);
 
 	return (
-		<div className="px-20">
+		<div className={`px-20 ${className}`}>
 			{(user && onSearch) && <Search
-				inputRef={searchRef}
+				searchVal={searchVal}
 				onSearch={onSearch}
-				setIsSearch={setIsSearch}
+				setSearchVal={setSearchVal}
 				setActivePage={setActivePage}
 			/>}
 			<h2 className="text-5xl py-10">{title}</h2>

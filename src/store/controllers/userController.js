@@ -100,13 +100,14 @@ export const deleteImage = (type, cb) => {
 	}
 }
 
-export const getInstructors = () => {
+export const getInstructors = (page) => {
 	return async dispatch => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
-			const data = await sendRequest('/users/instructors', 'GET');
+			const data = await sendRequest(`/users/instructors?page=${page}&page_size=12`, 'GET');
 			await new Promise(res => setTimeout(() => { res() }, 500));
 			dispatch(uiActions.setIsLoading(false));
+			console.log(data);
 			dispatch(userActions.setInstructors(data));
 		} catch (error) {
 			if (error.cause.status === 401)

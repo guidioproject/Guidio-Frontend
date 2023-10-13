@@ -3,7 +3,7 @@ import { getGuides, searchGuides, getGuidesByUserId } from "../../../store/contr
 
 import { useCallback } from "react";
 
-import List from "../List"
+import List from "../list/List"
 import Guide from "./Guide";
 
 const Guides = ({ user, isSingleUser }) => {

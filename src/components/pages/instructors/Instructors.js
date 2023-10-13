@@ -1,34 +1,41 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react";
+import { useCallback } from "react";
 
 import { getInstructors } from "../../../store/controllers/userController";
 
 import { MESSAGE_ERROR_NO_INSTRUCTORS } from "../../../store/constants";
-import Loading from "../../common/Loading";
 import Instructor from "./Instructor";
-import ErrorMessage from "../../common/ErrorMessage";
+import List from "../../common/list/List";
 
 const Instructors = () => {
 	const dispatch = useDispatch();
 
-	const instructors = useSelector(state => state.user.instructors);
-	const { isLoading } = useSelector(state => state.ui);
+	const {instructors, activeUser} = useSelector(state => state.user);
 
-	useEffect(() => {
-		dispatch(getInstructors());
+	const loadInstructors = useCallback(activePage => {
+		dispatch(getInstructors(activePage));
 	}, [dispatch]);
+
+	console.log(instructors);
+
 	return (
-		<div className="p-28 bg-bg-main min-h-[60vh]">
-			<h2 className="text-3xl">Instructors</h2>
-			{isLoading ? <Loading /> :
-				<div className="grid grid-cols-4 w-full gap-5 mt-10">
-					{instructors?.length ? instructors.map(instructor => <Instructor key={instructor.userId} instructor={instructor} />)
-						:
-						<ErrorMessage msg={MESSAGE_ERROR_NO_INSTRUCTORS} />
-					}
-				</div>
-			}
+	<List
+		className="p-28 bg-bg-main"
+		user={activeUser}
+		title="Instructors"
+		onSearch={null}
+		onLoad={loadInstructors}
+		items={instructors}
+		pages={instructors.pages}
+		errorMsg={MESSAGE_ERROR_NO_INSTRUCTORS}
+		>
+		<div className="grid grid-cols-4 w-full gap-5">
+		{instructors.users &&
+			instructors.users.map(instructor =>
+				<Instructor instructor={instructor} key={instructor.userId} />
+			)}
 		</div>
+		</List>
 	)
 }
 export default Instructors
