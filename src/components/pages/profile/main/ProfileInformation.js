@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 import { useDispatch } from "react-redux";
 
 import { updateUser } from "../../../../store/controllers/userController";
-import { showMessage } from "../../../../store/slices/uiSlice";
+import { showAlert } from "../../../../store/slices/uiSlice";
 
 import Avatar from "./Avatar";
 import Profession from "./Profession";
@@ -21,12 +21,12 @@ const ProfileInformation = ({ user }) => {
 	function updateHandler() {
 		const fields = formRef.current;
 		if (!profId) {
-			dispatch(showMessage('error', "Select a valid profession!"));
+			dispatch(showAlert('error', "Select a valid profession!"));
 			return;
 		}
 
 		if (fields.firstName.value === "" || fields.lastName.value === "" || fields.email.value === "") {
-			dispatch(showMessage('error', "Fields can't be empty!"));
+			dispatch(showAlert('error', "Fields can't be empty!"));
 			return;
 		}
 
@@ -55,7 +55,7 @@ const ProfileInformation = ({ user }) => {
 					setProfId={setprofId}
 					defaultValue={user.userDetails?.profession?.name}
 				/>
-				<InstructorToggle isInstructor={isInstructor} setIsInstructor={setIsInstructor} originalIsInstructor = {user?.userDetails?.isInstructor} />
+				<InstructorToggle isInstructor={isInstructor} setIsInstructor={setIsInstructor} originalIsInstructor={user?.userDetails?.isInstructor} />
 				<InputGroup
 					text="Bio"
 					color="secondary"

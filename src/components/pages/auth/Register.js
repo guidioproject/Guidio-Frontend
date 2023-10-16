@@ -1,8 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useEffect, useRef } from "react";
-import { showMessage } from "../../../store/slices/uiSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { showAlert } from "../../../store/slices/uiSlice";
+import { useDispatch } from "react-redux";
 
 import Form from "./common/Form";
 import { registerUser } from "../../../store/controllers/authController";
@@ -16,8 +16,6 @@ const Register = () => {
 
 	const registerRef = useRef({});
 
-	const errorMsg = useSelector((state) => state.ui.errorMsg);
-
 	useEffect(() => registerRef.current.firstName.focus(), []);
 
 	function registerHandler(event) {
@@ -27,12 +25,12 @@ const Register = () => {
 			registerRef.current;
 
 		if (!firstName.value || !lastName.value || !email.value || !password.value || !passwordConfirm.value) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
 			return false;
 		}
 
 		if (password.value !== passwordConfirm.value) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_PASSWORDS));
+			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_PASSWORDS));
 			return false;
 		}
 
@@ -43,13 +41,13 @@ const Register = () => {
 				email: email.value,
 				password: password.value
 			},
-			() => navigate("/")));
+				() => navigate("/")));
 	}
 
 	return (
 		<Form onSubmit={registerHandler}>
 			<h1 className="text-5xl font-bold">Register</h1>
-			<Alert type={MESSAGE_TYPE_ERROR} msg={errorMsg} />
+			<Alert />
 			<div className="flex gap-10">
 				<InputGroup inpRef={el => registerRef.current.firstName = el} lbl="First Name" isHalf />
 				<InputGroup inpRef={el => registerRef.current.lastName = el} lbl="Last Name" isHalf />
@@ -74,7 +72,7 @@ const Register = () => {
 						to="/auth/login"
 						className="text-secondary-main border-b-2 border-secondary-main"
 					>
-					LOGIN
+						LOGIN
 					</NavLink>
 				</p>
 			</div>

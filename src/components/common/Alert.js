@@ -1,6 +1,8 @@
 import { FaExclamationCircle, FaInfo } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
-const Alert = ({ type, msg, size = "full" }) => {
+const Alert = ({ size = "full" }) => {
+	const {type, msg} = useSelector(state => state.ui.alert);
 	return (
 		<div
 			className={`flex items-center justify-center border font-bold capitalize px-2 py-4 mb-5 rounded text-xl min-h-[4rem]

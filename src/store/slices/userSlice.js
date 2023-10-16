@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	activeUser: null,
-	professions: [],
-	instructors: [],
-	previewedUser: null
+	professions: []
 };
 
 const userSlice = createSlice({
@@ -13,12 +11,6 @@ const userSlice = createSlice({
 	reducers: {
 		setUser(state, action) {
 			state.activeUser = action.payload;
-		},
-		setPreviewedUser(state, action) {
-			state.previewedUser = action.payload;
-		},
-		setInstructors(state, action) {
-			state.instructors = action.payload;
 		},
 		removeUser(state) {
 			state.activeUser = null;

@@ -7,7 +7,7 @@ import EditorButtons from "../../common/editor/EditorButtons";
 import DOMPurify from "dompurify";
 
 import { updateGuide } from "../../../store/controllers/guideController";
-import { showMessage } from "../../../store/slices/uiSlice";
+import { showAlert } from "../../../store/slices/uiSlice";
 import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/constants";
 
 
@@ -21,7 +21,7 @@ const UpdateGuide = ({ id, guideContent, guideTitle, setIsUpdating, guideNote, p
 
 	function updateGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
 			return;
 		}
 		dispatch(updateGuide(title, content, id, note, isPublic, () => {
@@ -31,14 +31,14 @@ const UpdateGuide = ({ id, guideContent, guideTitle, setIsUpdating, guideNote, p
 	return (
 		<div className="bg-secondary-light p-10">
 			<EditorButtons onUpdateHandler={updateGuideHandler} published={published} mode="update" />
-				<Editor
-					title={title}
-					setTitle={e => setTitle(e.target.value)}
-					value={content}
-					setContent={e => setContent(DOMPurify.sanitize(e.target.value))}
-					note={note}
-					setNote={e => setNote(e.target.value)}
-				/>
+			<Editor
+				title={title}
+				setTitle={e => setTitle(e.target.value)}
+				value={content}
+				setContent={e => setContent(DOMPurify.sanitize(e.target.value))}
+				note={note}
+				setNote={e => setNote(e.target.value)}
+			/>
 
 		</div>
 	)

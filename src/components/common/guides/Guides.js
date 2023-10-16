@@ -10,7 +10,6 @@ const Guides = ({ user, isSingleUser }) => {
 	const dispatch = useDispatch();
 
 	const { guides, pages } = useSelector(state => state.guide.guidesData);
-	const { guideError } = useSelector(state => state.guide);
 
 	const onLoad = useCallback(activePage => {
 		isSingleUser ? dispatch(getGuidesByUserId(user.userId, activePage)) : dispatch(getGuides(activePage));
@@ -19,6 +18,7 @@ const Guides = ({ user, isSingleUser }) => {
 	const onSearch = useCallback((title, activePage) => {
 		dispatch(searchGuides(title, activePage));
 	}, [dispatch]);
+
 	return (
 		<List
 			user={user}
@@ -27,7 +27,6 @@ const Guides = ({ user, isSingleUser }) => {
 			onLoad={onLoad}
 			items={guides}
 			pages={pages}
-			errorMsg={guideError}
 		>
 			<div className={`grid ${isSingleUser ? "grid-cols-3" : "grid-cols-4"} w-full gap-5`}>
 				{guides &&

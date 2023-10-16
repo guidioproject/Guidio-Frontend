@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { showMessage } from "../../../store/slices/uiSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { showAlert } from "../../../store/slices/uiSlice";
+import { useDispatch } from "react-redux";
 import Form from "./common/Form";
 import { loginUser } from "../../../store/controllers/authController";
 import Alert from "../../common/Alert";
@@ -14,7 +14,6 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	const loginRef = useRef({});
-	const { errorMsg } = useSelector((state) => state.ui);
 
 	useEffect(() => loginRef.current.email.focus(), []);
 
@@ -23,17 +22,17 @@ const Login = () => {
 		const { email, password } = loginRef.current;
 
 		if (!email.value || !password.value) {
-			dispatch(showMessage(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
 			return false;
 		}
 		dispatch(loginUser({ email: email.value, password: password.value },
-		() => navigate('/')));
+			() => navigate('/')));
 	}
 
 	return (
 		<Form onSubmit={loginHandler}>
 			<h1 className="text-5xl font-bold pb-5">Login</h1>
-			<Alert type={MESSAGE_TYPE_ERROR} msg={errorMsg} />
+			<Alert />
 			<InputGroup inpRef={el => loginRef.current.email = el} lbl="Email" />
 			<InputGroup inpRef={el => loginRef.current.password = el} lbl="Password" isPw />
 			<div className=" inline-block mt-10 text-center">

@@ -8,14 +8,13 @@ import ChangePassword from "./main/ChangePassword";
 import ProfileInformation from "./main/ProfileInformation";
 import Guides from "../../common/guides/Guides";
 import { useParams } from "react-router-dom";
-import { getUserById } from "../../../store/controllers/userController";
+import { getUserById } from "../../../store/controllers/instructorController";
 
 const Profile = () => {
 	const id = Number(useParams().id);
 
 	const dispatch = useDispatch();
 
-	const { errorMsg, successMsg } = useSelector((state) => state.ui);
 	const user = useSelector(state => id ? state.user.previewedUser : state.user.activeUser);
 
 	const [activeTab, setActiveTab] = useState(0);
@@ -34,7 +33,7 @@ const Profile = () => {
 					<Menu setActiveTab={setActiveTab} activeTab={activeTab} /> : ''
 				}
 				<div className="flex justify-center">
-					<Alert type={(errorMsg && "error") || (successMsg && "success")} msg={successMsg || errorMsg} size="half"/>
+					<Alert size="half" />
 				</div>
 				{(!id && activeTab === 0) && <ProfileInformation user={user} />}
 				{(!id && activeTab === 1) && <ChangePassword user={user} />}

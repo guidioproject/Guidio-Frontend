@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 
 import Search from "./Search";
 import Loading from "../Loading";
-import ErrorMessage from "../ErrorMessage";
+import Error from "../Error";
 
-const List = ({ children, className = '', user, title, onSearch, onLoad, items, errorMsg, pages }) => {
+const List = ({ children, className = '', user, title, onSearch, onLoad, items, pages }) => {
 
 	const [searchVal, setSearchVal] = useState('');
 	const [activePage, setActivePage] = useState(1);
@@ -43,7 +43,7 @@ const List = ({ children, className = '', user, title, onSearch, onLoad, items, 
 	}, [searchVal]);
 
 	return (
-		<div className={`px-20 ${className}`}>
+		<div className={`px-20 min-h-[100vh] ${className}`}>
 			{(user && onSearch) && <Search
 				searchVal={searchVal}
 				onSearch={onSearch}
@@ -53,7 +53,7 @@ const List = ({ children, className = '', user, title, onSearch, onLoad, items, 
 			<h2 className="text-5xl py-10">{title}</h2>
 			{(isLoading && !items) && <Loading />}
 			{children}
-			{errorMsg && <ErrorMessage msg={errorMsg} />}
+			<Error />
 			{(isLoading && items) && <Loading />}
 		</div>
 	)

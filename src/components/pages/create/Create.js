@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createGuide } from "../../../store/controllers/guideController";
-import { showMessage } from "../../../store/slices/uiSlice";
+import { showAlert } from "../../../store/slices/uiSlice";
 
 import Alert from '../../common/Alert';
 import Editor from "../../common/editor/Editor";
@@ -14,7 +14,6 @@ const Create = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { errorMsg, successMsg } = useSelector(state => state.ui);
 	const [content, setContent] = useState("");
 	const [title, setTitle] = useState("");
 	const [note, setNote] = useState("");
@@ -22,7 +21,7 @@ const Create = () => {
 
 	function createGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showMessage('error', 'Fields cant be empty!'));
+			dispatch(showAlert('error', 'Fields cant be empty!'));
 			return;
 		}
 		dispatch(createGuide(title, content, note, isPublic, () => navigate('/')));
@@ -30,7 +29,7 @@ const Create = () => {
 	return (
 		<div className="bg-secondary-light p-10 pt-24">
 			<div className="flex justify-center">
-				<Alert type={(errorMsg && 'error') || (successMsg && 'success')} msg={errorMsg || successMsg} size="half" />
+				<Alert size="half" />
 			</div>
 			<EditorButtons onCreateHandler={createGuideHandler} mode="create" />
 			<Editor
