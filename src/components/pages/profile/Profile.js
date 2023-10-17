@@ -15,7 +15,7 @@ const Profile = () => {
 
 	const dispatch = useDispatch();
 
-	const user = useSelector(state => id ? state.user.previewedUser : state.user.activeUser);
+	const user = useSelector(state => id ? state.instructor.activeInstructor : state.user.activeUser);
 
 	const [activeTab, setActiveTab] = useState(0);
 
