@@ -2,6 +2,7 @@ import Header from "./Header";
 import Alert from '../../common/Alert';
 
 import { useSelector } from "react-redux";
+
 import Guides from "../../common/guides/Guides";
 
 const Home = () => {
@@ -12,9 +13,7 @@ const Home = () => {
 				<Alert size='fit' />
 			</div>
 			{!activeUser && <Header />}
-			<div className="pt-48">
-				<Guides user={activeUser} isSingleUser={false} />
-			</div>
+			<Guides user={activeUser} isSingleUser={false} />
 		</div>
 	);
 };

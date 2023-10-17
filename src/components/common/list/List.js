@@ -5,7 +5,7 @@ import Search from "./Search";
 import Loading from "../Loading";
 import Error from "../Error";
 
-const List = ({ children, className = '', user, title, onSearch, onLoad, items, pages }) => {
+const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
 
 	const [searchVal, setSearchVal] = useState('');
 	const [activePage, setActivePage] = useState(1);
@@ -28,28 +28,26 @@ const List = ({ children, className = '', user, title, onSearch, onLoad, items, 
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			if (searchVal) {
+			if (searchVal)
 				onSearch(searchVal, activePage);
-			} else {
-				onLoad(activePage);
-			}
+			else
+				onGet(activePage);
 		}, 500);
 
 		return () => clearTimeout(timeout);
-	}, [onLoad, onSearch, activePage, searchVal]);
+	}, [onGet, onSearch, activePage, searchVal]);
 
 	useEffect(() => {
 		setActivePage(1);
 	}, [searchVal]);
 
 	return (
-		<div className={`px-20 min-h-[100vh] ${className}`}>
-			{(user && onSearch) && <Search
-				searchVal={searchVal}
-				onSearch={onSearch}
-				setSearchVal={setSearchVal}
-				setActivePage={setActivePage}
-			/>}
+		<div className={`px-20 min-h-[100vh] pt-48`}>
+			{(user && onSearch) &&
+				<Search
+					searchVal={searchVal}
+					setSearchVal={setSearchVal}
+				/>}
 			<h2 className="text-5xl py-10">{title}</h2>
 			{(isLoading && !items) && <Loading />}
 			{children}

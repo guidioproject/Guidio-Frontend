@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { uiActions } from "./uiSlice";
 
 const initialState = {
 	guidesData: {},
@@ -26,6 +27,14 @@ const guideSlice = createSlice({
 		}
 	}
 })
+
+export const resetGuides = () => {
+	return async dispatch => {
+		dispatch(uiActions.setError(null));
+		dispatch(uiActions.setIsLoading(true));
+		dispatch(guideActions.setGuides({}));
+	}
+}
 
 export default guideSlice;
 

@@ -1,38 +1,48 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
-import { getInstructors } from "../../../store/controllers/instructorController";
+import { getInstructors, searchInstructors } from "../../../store/controllers/instructorController";
 
 import Instructor from "./Instructor";
 import List from "../../common/list/List";
+import { resetInstructors } from "../../../store/slices/instructorSlice";
 
 const Instructors = () => {
 	const dispatch = useDispatch();
 
 	const {activeUser} = useSelector(state => state.user);
-	const { users, pages } = useSelector(state => state.instructor.instructorsData);
+	const { instructors, pages } = useSelector(state => state.instructor.instructorsData);
 
-	const loadInstructors = useCallback(activePage => {
+	const getInstructorsHandler = useCallback(activePage => {
 		dispatch(getInstructors(activePage));
 	}, [dispatch]);
 
+	const searchInstructorsHandler = useCallback((search, activePage) => {
+		dispatch(searchInstructors(search, activePage));
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(resetInstructors());
+	}, [dispatch]);
+
 	return (
-		<List
-			className="p-28 bg-bg-main"
-			user={activeUser}
-			title="Instructors"
-			onSearch={null}
-			onLoad={loadInstructors}
-			items={users}
-			pages={pages}
-		>
-			<div className="grid grid-cols-4 w-full gap-5">
-				{users &&
-					users.map(instructor =>
-						<Instructor instructor={instructor} key={instructor.userId} />
-					)}
-			</div>
-		</List>
+		<div className="bg-bg-main">
+			<List
+				user={activeUser}
+				title="Instructors"
+				onSearch={searchInstructorsHandler}
+				onGet={getInstructorsHandler}
+				items={instructors}
+				pages={pages}
+			>
+				<div className="grid grid-cols-4 w-full gap-5">
+					{instructors &&
+						instructors.map(instructor =>
+							<Instructor instructor={instructor} key={instructor.userId} />
+						)}
+				</div>
+			</List>
+		</div>
 	)
 }
 export default Instructors

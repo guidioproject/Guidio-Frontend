@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { uiActions } from "./uiSlice";
 
 const initialState = {
 	instructorsData: {},
@@ -21,5 +22,14 @@ const instructorSlice = createSlice({
 	}
 });
 
+export const resetInstructors = () => {
+	return async dispatch => {
+		dispatch(uiActions.setError(null));
+		dispatch(uiActions.setIsLoading(true));
+		dispatch(instructorActions.setInstructors({}));
+	}
+}
+
 export default instructorSlice;
+
 export const instructorActions = instructorSlice.actions;
