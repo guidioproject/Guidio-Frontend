@@ -13,7 +13,7 @@ const Instructor = ({instructor}) => {
       }
       <h2 className="text-xl group-hover:underline">{instructor.firstName} {instructor.lastName}</h2>
     </NavLink>
-    <p className=" text-gray-dark">{instructor?.userDetails?.profession.name || "Profession not set"}</p>
+    <p className=" text-gray-dark">{instructor?.userDetails?.profession?.name || "Profession not set"}</p>
     <p className="w-2/3 break-words text-left">{instructor?.userDetails?.bio.length < 150 ? instructor?.userDetails?.bio : instructor?.userDetails?.bio.substring(0, 150) + "..."}</p>
     <div className="flex text-3xl w-1/3 justify-between">
       <NavLink
