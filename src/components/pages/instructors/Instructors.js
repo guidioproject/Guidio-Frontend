@@ -26,7 +26,7 @@ const Instructors = () => {
 	}, [dispatch]);
 
 	return (
-		<div className="bg-bg-main">
+		<div className="bg-bg-main py-5">
 			<List
 				user={activeUser}
 				title="Instructors"
