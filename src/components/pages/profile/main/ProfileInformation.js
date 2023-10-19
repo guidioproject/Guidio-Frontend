@@ -20,10 +20,6 @@ const ProfileInformation = ({ user }) => {
 
 	function updateHandler() {
 		const fields = formRef.current;
-		if (!profId) {
-			dispatch(showAlert('error', "Select a valid profession!"));
-			return;
-		}
 
 		if (fields.firstName.value === "" || fields.lastName.value === "" || fields.email.value === "") {
 			dispatch(showAlert('error', "Fields can't be empty!"));

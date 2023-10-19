@@ -23,7 +23,7 @@ const Instructor = ({ instructor }) => {
 				}
 				<h2 className="text-xl group-hover:underline">{firstName} {lastName}</h2>
 			</NavLink>
-			<p className=" text-gray-dark">{handleProfession(userDetails.profession.name)}</p>
+			<p className=" text-gray-dark">{handleProfession(userDetails.profession?.name)}</p>
 			<p className="w-2/3 break-words text-left">{handleBio(userDetails.bio)}</p>
 			<div className="flex text-3xl w-1/3 justify-between">
 				<NavLink to={userDetails.website || "/"} target="_blank">
