@@ -1,13 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useEffect, useRef } from "react";
-import { showAlert } from "../../../store/slices/uiSlice";
+import { clearAlerts, showAlert } from "../../../store/slices/uiSlice";
 import { useDispatch } from "react-redux";
 
 import Form from "./common/Form";
 import { registerUser } from "../../../store/controllers/authController";
 import Alert from "../../common/Alert";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_ERROR_PASSWORDS, MESSAGE_TYPE_ERROR } from "../../../store/constants";
+import { MESSAGE_ERROR_FIELDS, MESSAGE_ERROR_PASSWORDS, MESSAGE_TYPE_ERROR } from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
 
 const Register = () => {
@@ -16,7 +16,10 @@ const Register = () => {
 
 	const registerRef = useRef({});
 
-	useEffect(() => registerRef.current.firstName.focus(), []);
+	useEffect(() => {
+		dispatch(clearAlerts());
+		registerRef.current.firstName.focus();
+	}, [dispatch]);
 
 	function registerHandler(event) {
 		event.preventDefault();

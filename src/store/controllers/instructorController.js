@@ -1,4 +1,4 @@
-import { MESSAGE_ERROR_NO_INSTRUCTORS, MESSAGE_ERROR_UNEXPECTED, MESSAGE_TYPE_ERROR } from "../constants";
+import { MESSAGE_ERROR_NO_INSTRUCTORS, MESSAGE_ERROR_UNEXPECTED, MESSAGE_TYPE_ERROR } from "../messages";
 import { instructorActions } from "../slices/instructorSlice";
 import { showAlert, uiActions } from "../slices/uiSlice";
 import { getUserByToken } from "./authController";
@@ -16,7 +16,7 @@ export const getInstructors = (page) => {
 			dispatch(uiActions.setIsLoading(false));
 
 			if (page === 1)
-				dispatch(instructorActions.setInstructors({pages: data.pages, instructors: data.users}));
+				dispatch(instructorActions.setInstructors({ pages: data.pages, instructors: data.users }));
 			if (page > 1)
 				dispatch(instructorActions.updateInstructors(data.users));
 
@@ -44,14 +44,14 @@ export const searchInstructors = (search, page) => {
 			dispatch(uiActions.setIsLoading(true));
 
 			const data = await sendRequest(`/users/instructors/search?search=${search}&page=${page}&page_size=12`, 'GET');
-			await new Promise(res => {setTimeout(() => {res()}, 500)});
+			await new Promise(res => { setTimeout(() => { res() }, 500) });
 
 			dispatch(uiActions.setIsLoading(false));
 			if (page === 1)
-				dispatch(instructorActions.setInstructors({pages: data.pages, instructors: data.users}));
+				dispatch(instructorActions.setInstructors({ pages: data.pages, instructors: data.users }));
 			if (page > 1)
 				dispatch(instructorActions.updateInstructors(data.users));
-		} catch(err) {
+		} catch (err) {
 			await new Promise((res) => { setTimeout(() => { res() }, 500) });
 
 			if (err.cause.status === 401)

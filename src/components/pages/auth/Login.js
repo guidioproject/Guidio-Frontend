@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { showAlert } from "../../../store/slices/uiSlice";
+import { clearAlerts, showAlert } from "../../../store/slices/uiSlice";
 import { useDispatch } from "react-redux";
 import Form from "./common/Form";
 import { loginUser } from "../../../store/controllers/authController";
 import Alert from "../../common/Alert";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/constants";
+import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
 
 const Login = () => {
@@ -15,7 +15,10 @@ const Login = () => {
 
 	const loginRef = useRef({});
 
-	useEffect(() => loginRef.current.email.focus(), []);
+	useEffect(() => {
+		dispatch(clearAlerts());
+		loginRef.current.email.focus()
+	}, [dispatch]);
 
 	function loginHandler(event) {
 		event.preventDefault();

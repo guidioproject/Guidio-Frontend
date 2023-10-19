@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	alert: {type: '', msg: ''},
+	alert: {type: '', msgObj: {msg: '', pages: []}},
 	error: null,
 	isLoading: false
 };
@@ -28,14 +28,14 @@ export default uiSlice;
 
 let timeout;
 
-export const showAlert = (type, msg) => {
+export const showAlert = (type, msgObj) => {
 	clearTimeout(timeout);
 	return async dispatch => {
-			dispatch(uiActions.setAlert({type, msg}))
+			dispatch(uiActions.setAlert({type, msgObj}))
 			timeout = setTimeout(() => {
-				dispatch(uiActions.setAlert({type: '', msg: ''}));
+				dispatch(uiActions.setAlert({type: '',  msgObj: {msg: '', pages: []}}));
 				timeout = null;
-			}, 4000);
+			}, 3000);
 	};
 };
 
@@ -43,6 +43,6 @@ export const clearAlerts = () => {
 	clearTimeout(timeout);
 
 	return async dispatch => {
-		dispatch(uiActions.setAlert({type: '', msg: ''}));
+		dispatch(uiActions.setAlert({type: '',  msgObj: {msg: '', pages: []}}));
 	}
 }

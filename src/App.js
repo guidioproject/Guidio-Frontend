@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 
 import { useDispatch, useSelector } from "react-redux";
-import { clearAlerts } from './store/slices/uiSlice';
 import { getUserByToken } from "./store/controllers/authController";
 
 import { Navigate, Route, Routes, useLocation } from "react-router"
@@ -27,11 +26,8 @@ const App = () => {
 	const showLayout = !pathname.startsWith('/auth');
 
 	useEffect(() => {
-		const shouldclearAlerts = pathname.startsWith('/auth') || pathname === '/profile' || pathname === '/create' || pathname.startsWith('/guides');
-
 		showLayout && window.scrollTo(0, 0);
-		shouldclearAlerts && dispatch(clearAlerts());
-	}, [dispatch, pathname, showLayout]);
+	}, [pathname, showLayout]);
 
 	useEffect(() => {
 		if (document.cookie.startsWith('auth_token'))

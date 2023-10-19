@@ -1,4 +1,4 @@
-import { MESSAGE_ERROR_GUIDE_CREATE, MESSAGE_ERROR_GUIDE_DELETE, MESSAGE_ERROR_GUIDE_UPDATE, MESSAGE_ERROR_NO_GUIDES, MESSAGE_ERROR_UNEXPECTED, MESSAGE_SUCCESS_GUIDE_CREATE, MESSAGE_SUCCESS_GUIDE_DELETE, MESSAGE_SUCCESS_GUIDE_DRAFT, MESSAGE_SUCCESS_GUIDE_UPDATE, MESSAGE_TYPE_ERROR, MESSAGE_TYPE_SUCCESS } from "../constants";
+import { MESSAGE_ERROR_GUIDE_CREATE, MESSAGE_ERROR_GUIDE_DELETE, MESSAGE_ERROR_GUIDE_UPDATE, MESSAGE_ERROR_NO_GUIDES, MESSAGE_ERROR_UNEXPECTED, MESSAGE_SUCCESS_GUIDE_CREATE, MESSAGE_SUCCESS_GUIDE_DELETE, MESSAGE_SUCCESS_GUIDE_DRAFT, MESSAGE_SUCCESS_GUIDE_UPDATE, MESSAGE_TYPE_ERROR, MESSAGE_TYPE_SUCCESS } from "../messages";
 import { sendRequest } from "./common/sendRequest";
 import { guideActions } from "../slices/guideSlice";
 import { showAlert, uiActions } from "../slices/uiSlice";
@@ -121,7 +121,11 @@ export const updateGuide = function (title, content, id, note, published, cb) {
 		try {
 			await sendRequest(`/guides/${id}`, 'PUT', { title, content, note, published });
 			cb();
-			dispatch(showAlert(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_GUIDE_UPDATE));
+
+			if (published)
+				dispatch(showAlert(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_GUIDE_UPDATE));
+			else
+				dispatch(showAlert(MESSAGE_TYPE_SUCCESS, MESSAGE_SUCCESS_GUIDE_DRAFT));
 		} catch (err) {
 			if (err.cause.status === 401)
 				dispatch(getUserByToken());

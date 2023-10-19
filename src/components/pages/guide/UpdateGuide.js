@@ -8,7 +8,7 @@ import DOMPurify from "dompurify";
 
 import { updateGuide } from "../../../store/controllers/guideController";
 import { showAlert } from "../../../store/slices/uiSlice";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/constants";
+import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/messages";
 
 
 
