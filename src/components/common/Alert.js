@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { FaExclamationCircle, FaInfo } from "react-icons/fa";
-
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-const Alert = ({ size = "full" }) => {
-	const [shouldShow, setShouldShow] = useState(false);
-	const { pathname } = useLocation();
+import { FaExclamationCircle, FaInfo } from "react-icons/fa";
 
-	const {type, msgObj} = useSelector(state => state.ui.alert);
-	const {msg, pages} = msgObj;
+const Alert = ({ size = "full" }) => {
+	const { pathname } = useLocation();
+	const [shouldShow, setShouldShow] = useState(false);
+
+	const { type, msgObj } = useSelector(state => state.ui.alert);
+	const { msg, pages } = msgObj;
 
 	useEffect(() => {
 		function handlePages() {
@@ -20,7 +20,7 @@ const Alert = ({ size = "full" }) => {
 					setShouldShow(false);
 			}
 			else if (pages.length > 1) {
-				for( let i = 0; i < pages.length; i++) {
+				for (let i = 0; i < pages.length; i++) {
 					if (pages[i] === pathname || (pages[i].startsWith('/guides') && pathname.startsWith('/guides'))) {
 						setShouldShow(true);
 						break;
@@ -32,15 +32,13 @@ const Alert = ({ size = "full" }) => {
 		}
 		handlePages();
 	}, [pathname, pages]);
-	console.log(shouldShow);
+
 	return (
 		<div
 			className={`flex items-center justify-center border font-bold capitalize px-2 py-4 mb-5 rounded text-xl min-h-[4rem]
-			${size === "full" && "w-full"}
-			${size === "half" && "w-1/2"}
-			${size === "fit" && "w-fit"}
+			${size === "full" && "w-full"} ${size === "half" && "w-1/2"} ${size === "fit" && "w-fit"}
 			${type === "error" && "text-danger-dark border-danger-dark bg-danger-light"}
-			 ${type === "success" && "text-success-darker border-success-main bg-success-main"}
+			${type === "success" && "text-success-darker border-success-main bg-success-main"}
 			${(!msg || (msg && !shouldShow)) && "invisible"}`}
 		>
 			{type === "error" && <FaExclamationCircle className="inline text-xl mr-1" />}

@@ -1,5 +1,6 @@
-import { FaLinkedin, FaGoogle, FaTelegram } from 'react-icons/fa';
 import { Link } from "react-router-dom"
+
+import { FaLinkedin, FaGoogle, FaTelegram } from 'react-icons/fa';
 import Logo from "./common/Logo"
 const Footer = () => {
 	return (

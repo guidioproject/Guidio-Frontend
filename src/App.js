@@ -21,7 +21,7 @@ const App = () => {
 	const { pathname } = useLocation();
 
 	const activeUser = useSelector(state => state.user.activeUser);
-	const isInstructor = activeUser?.userDetails?.isInstructor;
+	const isInstructor = activeUser?.userDetails.isInstructor;
 
 	const showLayout = !pathname.startsWith('/auth');
 
