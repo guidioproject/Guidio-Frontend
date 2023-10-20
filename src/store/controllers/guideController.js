@@ -112,8 +112,8 @@ export const getGuideById = function (id) {
 	return async dispatch => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
-			const { title, content, guideId, user, note, published, lastModified } = await sendRequest(`/guides/guide/${id}`, 'GET');
-			dispatch(guideActions.setActiveGuide({ title: `# ${title}`, content, guideId, user, note, published, lastModified }));
+			const { title, content, guideId, user, note, published, lastModified, coverImage } = await sendRequest(`/guides/guide/${id}`, 'GET');
+			dispatch(guideActions.setActiveGuide({ title: `# ${title}`, content, guideId, user, note, published, lastModified, coverImage }));
 			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
 			handleErrorMessages(dispatch, err.message);
@@ -134,3 +134,33 @@ export const deleteGuide = (id, cb) => {
 		}
 	};
 };
+
+export const uploadCoverImage = (file, id) => {
+	return async dispatch => {
+		try {
+			const data = await sendRequest(`/guides/cover_image?guide_id=${id}`, 'POST', file, true);
+			dispatch(guideActions.setActiveGuide(data));
+		} catch (error) {
+			console.log(error);
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		}
+	}
+}
+
+export const deleteCoverImage = (id, cb) => {
+	return async dispatch => {
+		try {
+			await sendRequest(`/guides/cover_image?guide_id=${id}`, 'DELETE');
+			cb();
+			dispatch(guideActions.removeCoverImage());
+		} catch (error) {
+			if (error.cause.status === 401)
+				dispatch(getUserByToken());
+			else
+				dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		}
+	}
+}

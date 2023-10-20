@@ -5,7 +5,7 @@ const Guide = ({guide}) => {
   return (
 	<NavLink to={`/guides/${guide.guideId}`} className="group w-full mb-10  hover:cursor-pointer" key={`${guide.guideId} - ${guide.title}`}>
 	<div className="relative">
-		<img src={cardImg} alt="Card Item" />
+		<img src={guide.coverImage ? '/' + guide.coverImage : cardImg} alt="Card Item" className="h-80" />
 		<div className="absolute top-0 w-full h-full p-4 text-light-main flex items-end gap-2
 						group-hover:bg-gradient-to-b from-gradient-white to-gradient-secondary">
 			<h3 className="text-xl">
