@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import Form from "./common/Form";
 import { loginUser } from "../../../store/controllers/authController";
 import Alert from "../../common/Alert";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/messages";
+import messages from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
 
 const Login = () => {
@@ -25,7 +25,7 @@ const Login = () => {
 		const { email, password } = loginRef.current;
 
 		if (!email.value || !password.value) {
-			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showAlert('error', messages.error['error_fields']));
 			return false;
 		}
 		dispatch(loginUser({ email: email.value, password: password.value },

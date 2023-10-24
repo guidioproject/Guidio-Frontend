@@ -1,8 +1,6 @@
-import { MESSAGE_ERROR_NO_INSTRUCTORS, MESSAGE_ERROR_UNEXPECTED, MESSAGE_TYPE_ERROR } from "../messages";
 import { instructorActions } from "../slices/instructorSlice";
-import { showAlert, uiActions } from "../slices/uiSlice";
-import { getUserByToken } from "./authController";
-import { sendRequest } from "./common/sendRequest";
+import { uiActions } from "../slices/uiSlice";
+import { handleErrorMessages, sendRequest } from "./common/request";
 
 export const getInstructors = (page) => {
 	return async dispatch => {
@@ -20,17 +18,11 @@ export const getInstructors = (page) => {
 			if (page > 1)
 				dispatch(instructorActions.updateInstructors(data.users));
 
-		} catch (error) {
+		} catch (err) {
 			await new Promise(res => setTimeout(() => { res() }, 500));
-
-			if (error.cause.status === 401)
-				dispatch(getUserByToken());
-			else if (error.cause.status === 404) {
-				dispatch(uiActions.setError(MESSAGE_ERROR_NO_INSTRUCTORS));
+			if (err.message === 'requested_a_non-existent_page')
 				dispatch(instructorActions.setInstructors({}));
-			}
-			else
-				dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+			handleErrorMessages(dispatch, err.message);
 			dispatch(uiActions.setIsLoading(false));
 		}
 	}
@@ -52,16 +44,10 @@ export const searchInstructors = (search, page) => {
 			if (page > 1)
 				dispatch(instructorActions.updateInstructors(data.users));
 		} catch (err) {
-			await new Promise((res) => { setTimeout(() => { res() }, 500) });
-
-			if (err.cause.status === 401)
-				dispatch(getUserByToken());
-			else if (err.cause.status === 404) {
-				dispatch(uiActions.setError(MESSAGE_ERROR_NO_INSTRUCTORS));
+			await new Promise(res => setTimeout(() => { res() }, 500));
+			if (err.message === 'requested_a_non-existent_page')
 				dispatch(instructorActions.setInstructors({}));
-			}
-			else
-				dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+			handleErrorMessages(dispatch, err.message);
 			dispatch(uiActions.setIsLoading(false));
 		}
 	}
@@ -72,11 +58,8 @@ export const getUserById = id => {
 		try {
 			const data = await sendRequest(`/users/${id}`, 'GET');
 			dispatch(instructorActions.setActiveInstructor(data));
-		} catch (error) {
-			if (error.cause.status === 401)
-				dispatch(getUserByToken());
-			else
-				dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_UNEXPECTED));
+		} catch (err) {
+			handleErrorMessages(dispatch, err.message);
 		}
 	}
 }

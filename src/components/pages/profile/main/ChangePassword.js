@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { changePassword } from "../../../../store/controllers/userController";
 import InputGroup from "../common/InputGroup"
 import { showAlert } from "../../../../store/slices/uiSlice";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../../store/messages";
+import messages from "../../../../store/messages";
 
 const ChangePassword = ({ user }) => {
 	const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const ChangePassword = ({ user }) => {
 		const { currentPassword, password } = pwRef.current;
 
 		if (!currentPassword.value || !password.value) {
-			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showAlert('success', messages.error['error_fields']));
 			return false;
 		}
 		dispatch(
