@@ -18,7 +18,7 @@ export const sendRequest =  async(url, request, body, isFile) => {
 			throw new Error('server_error');
 
 		if (request === 'DELETE') {
-			if (request.status === 204)
+			if (res.status === 204)
 				return true;
 			else
 				throw new Error('server_error');
