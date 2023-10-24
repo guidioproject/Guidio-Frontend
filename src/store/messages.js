@@ -1,7 +1,6 @@
 const messages = {
 	error: {
 		"server_error": {msg: 'Error! Unexpected error occured.', pages: ['*']},
-		"delete_error": {},
 		"error_fields": {msg: "Error! Fields can't be empty", pages:['/auth/login', '/auth/register', '/profile']},
 		"value_error.email": {msg: 'Error! Invalid email format.', pages: ['/auth/login']},
 		"invalid_credentials": {msg: 'Error! Wrong email or password.', pages: ['/auth/login']},

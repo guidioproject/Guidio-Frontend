@@ -21,7 +21,7 @@ export const sendRequest =  async(url, request, body, isFile) => {
 			if (request.status === 204)
 				return true;
 			else
-				throw new Error('delete_error');
+				throw new Error('server_error');
 		}
 
 		const data = await res.json();
