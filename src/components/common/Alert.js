@@ -20,8 +20,8 @@ const Alert = ({ size = "full" }) => {
 					setShouldShow(false);
 			}
 			else if (pages.length > 1) {
-				for (let i = 0; i < pages.length; i++) {
-					if (pages[i] === pathname || (pages[i].startsWith('/guides') && pathname.startsWith('/guides'))) {
+				for (const element of pages) {
+					if (element === pathname || (element.startsWith('/guides') && pathname.startsWith('/guides'))) {
 						setShouldShow(true);
 						break;
 					}

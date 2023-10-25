@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import Form from "./common/Form";
 import { registerUser } from "../../../store/controllers/authController";
 import Alert from "../../common/Alert";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_ERROR_PASSWORDS, MESSAGE_TYPE_ERROR } from "../../../store/messages";
+import messages from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
 
 const Register = () => {
@@ -28,12 +28,12 @@ const Register = () => {
 			registerRef.current;
 
 		if (!firstName.value || !lastName.value || !email.value || !password.value || !passwordConfirm.value) {
-			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showAlert('error', messages.error['error_fields']));
 			return false;
 		}
 
 		if (password.value !== passwordConfirm.value) {
-			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_PASSWORDS));
+			dispatch(showAlert('error', messages.error['error_passwords']));
 			return false;
 		}
 

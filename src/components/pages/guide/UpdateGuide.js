@@ -8,7 +8,7 @@ import DOMPurify from "dompurify";
 
 import { updateGuide } from "../../../store/controllers/guideController";
 import { showAlert } from "../../../store/slices/uiSlice";
-import { MESSAGE_ERROR_FIELDS, MESSAGE_TYPE_ERROR } from "../../../store/messages";
+import messages from "../../../store/messages";
 
 
 
@@ -21,7 +21,7 @@ const UpdateGuide = ({ id, guideContent, guideTitle, setIsUpdating, guideNote, p
 
 	function updateGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showAlert(MESSAGE_TYPE_ERROR, MESSAGE_ERROR_FIELDS));
+			dispatch(showAlert('success', messages.error['error_fields']));
 			return;
 		}
 		dispatch(updateGuide(title, content, id, note, isPublic, () => {

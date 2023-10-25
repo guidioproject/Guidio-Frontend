@@ -3,8 +3,7 @@ import { uiActions } from "./uiSlice";
 
 const initialState = {
 	guidesData: {},
-	activeGuide: {},
-	guideError: null
+	activeGuide: {}
 }
 const guideSlice = createSlice({
 	name: 'guide',
