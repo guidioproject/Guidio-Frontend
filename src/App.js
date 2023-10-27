@@ -11,10 +11,11 @@ import Navbar from "./components/layout/Navbar"
 import Home from "./components/pages/home/Home"
 import Profile from "./components/pages/profile/Profile";
 import Create from "./components/pages/create/Create";
-import Guide from './components/pages/guide/Guide';
+import Guide from './components/pages/guides/GuideDetails';
 import Instructors from "./components/pages/instructors/Instructors";
 import Login from "./components/pages/auth/Login";
 import Register from "./components/pages/auth/Register";
+import Update from "./components/pages/update/Update";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const App = () => {
 				<Route path="/profile" element={activeUser ? <Profile /> : <Navigate replace to='/' />} />
 				<Route path="/create" element={isInstructor ? <Create /> : <Navigate replace to='/' />} />
 				<Route path="/guides/:id" element={activeUser ? <Guide /> : <Navigate replace to='/' />} />
+				<Route path='/guides/:id/update' element={activeUser ? <Update /> : <Navigate replace to='/' />} />
 				<Route path="/instructors" element={activeUser ? <Instructors /> : <Navigate replace to='/' />} />
 				<Route path='/instructors/:id' element={activeUser ? <Profile /> : <Navigate replace to='/' />} />
 			</Routes>

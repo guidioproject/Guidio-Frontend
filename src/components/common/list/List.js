@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
 
 import Search from "./Search";
-import Loading from "../Loading";
-import Error from "../Error";
+import Loading from "../../ui/Loading";
+import Error from "../../ui/Error";
 
 const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
 

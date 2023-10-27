@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { createGuide } from "../../../store/controllers/guideController";
 import { showAlert } from "../../../store/slices/uiSlice";
 
-import Alert from '../../common/Alert';
-import Editor from "../../common/editor/Editor";
+import Alert from '../../ui/Alert';
 
 import DOMPurify from "dompurify";
 import { useNavigate } from "react-router-dom";
-import EditorButtons from "../../common/editor/EditorButtons";
+import EditorButtons from "../../common/md/editor/EditorButtons";
+import Editor from "../../common/md/editor/Editor";
 
 const Create = () => {
 	const dispatch = useDispatch();

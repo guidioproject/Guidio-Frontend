@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ProfileHeader from "./header/ProfileHeader";
 import Menu from "./main/Menu";
-import Alert from "../../common/Alert";
+import Alert from "../../ui/Alert";
 import ChangePassword from "./main/ChangePassword";
 import ProfileInformation from "./main/ProfileInformation";
 import Guides from "../../common/guides/Guides";

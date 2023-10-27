@@ -1,5 +1,5 @@
 import Header from "./Header";
-import Alert from '../../common/Alert';
+import Alert from '../../ui/Alert';
 
 import { useSelector } from "react-redux";
 

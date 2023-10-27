@@ -5,7 +5,7 @@ import { clearAlerts, showAlert } from "../../../store/slices/uiSlice";
 import { useDispatch } from "react-redux";
 import Form from "./common/Form";
 import { loginUser } from "../../../store/controllers/authController";
-import Alert from "../../common/Alert";
+import Alert from "../../ui/Alert";
 import messages from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
 

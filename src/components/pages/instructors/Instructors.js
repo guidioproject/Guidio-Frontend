@@ -3,7 +3,7 @@ import { useCallback, useEffect } from "react";
 
 import { getInstructors, searchInstructors } from "../../../store/controllers/instructorController";
 
-import Instructor from "./Instructor";
+import Instructor from "./InstructorsItem";
 import List from "../../common/list/List";
 import { resetInstructors } from "../../../store/slices/instructorSlice";
 

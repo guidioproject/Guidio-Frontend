@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { deleteGuide, getGuideById } from "../../../store/controllers/guideController";
 
-import MarkdownContent from "../../common/MarkdownContent"
+import MarkdownContent from "../../common/md/MarkdownContent"
 import FeaturedGuides from "./FeaturedGuides";
 import GuideInfo from "./GuideInfo";
-import Alert from "../../common/Alert";
+import Alert from "../../ui/Alert";
 
-const GuideContent = ({ id, activeGuide, activeUser, setIsUpdating }) => {
+const GuideContent = ({ id, activeGuide, activeUser }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -29,10 +29,10 @@ const GuideContent = ({ id, activeGuide, activeUser, setIsUpdating }) => {
 			</div>
 			{activeUser.userId === activeGuide.user?.userId &&
 				<div className="flex gap-5">
-					<button className="inline-block py-2 px-4 my-5 rounded-md bg-secondary-main text-light-main text-lg font-medium"
-						onClick={() => setIsUpdating(true)}>
+					<NavLink className="inline-block py-2 px-4 my-5 rounded-md bg-secondary-main text-light-main text-lg font-medium"
+						to={`/guides/${id}/update`}>
 						Edit Guide
-					</button>
+					</NavLink>
 					<button className="inline-block py-2 px-4 my-5 rounded-md bg-danger-dark text-light-main text-lg font-medium self-end" onClick={deleteGuideHandler}>
 						Delete a guide
 					</button>
@@ -41,7 +41,7 @@ const GuideContent = ({ id, activeGuide, activeUser, setIsUpdating }) => {
 			<GuideInfo activeGuide={activeGuide} />
 			<div className="flex gap-10">
 				<MarkdownContent content={content} lastModified={activeGuide.lastModified} className="h-fit" />
-				<FeaturedGuides userId={activeGuide?.user?.userId} guideId={id} />
+				<FeaturedGuides userId={activeGuide.user.userId} guideId={id} />
 			</div>
 		</div>
 	)

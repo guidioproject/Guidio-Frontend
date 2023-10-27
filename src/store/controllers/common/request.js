@@ -31,8 +31,10 @@ export const sendRequest =  async(url, request, body, isFile) => {
 
 			if (Array.isArray(detail))
 				throw new Error(detail[0].type);
+
 			else if (typeof detail === 'string') {
 				const typeFromMsg = detail.toLowerCase().split(" ").join("_");
+
 				throw new Error(typeFromMsg);
 			}
 		}
@@ -41,9 +43,9 @@ export const sendRequest =  async(url, request, body, isFile) => {
 }
 
 export const handleErrorMessages = (dispatch, msg) => {
-	if (msg === 'unauthorized') 
+	if (msg === 'unauthorized')
 		dispatch(getUserByToken());
-	else if (msg === 'guides_not_found' || msg === 'requested_a_non-existent_page') 
+	else if (msg === 'guides_not_found' || msg === 'requested_a_non-existent_page')
 		dispatch(uiActions.setError(messages.error[msg]));
 	else
 		dispatch(showAlert('error', messages.error[msg]))

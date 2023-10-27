@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import EditorMenu from './EditorMenu';
-import MarkdownContent from '../MarkdownContent';
+import MarkdownContent from '../../md/MarkdownContent';
 import { getPreviousLineFirstChar, handleOl } from './utils';
 
 const Editor = ({ setContent, setTitle, setNote, title, value, note }) => {

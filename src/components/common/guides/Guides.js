@@ -4,7 +4,7 @@ import { getGuides, searchGuides, getGuidesByUserId } from "../../../store/contr
 import { useCallback, useEffect } from "react";
 
 import List from "../list/List"
-import Guide from "./Guide";
+import Guide from "./GuidesItem";
 import { resetGuides } from "../../../store/slices/guideSlice";
 
 const Guides = ({ user, isSingleUser }) => {

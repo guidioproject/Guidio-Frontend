@@ -5,11 +5,11 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize'
 
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import Loading from "./Loading";
+import Loading from "../../ui/Loading";
 
-const MarkdownContent = ({ content, className = "" }) => {
+const MarkdownContent = ({ content }) => {
 	const { isLoading } = useSelector(state => state.ui);
 	try {
 		return (
@@ -17,7 +17,6 @@ const MarkdownContent = ({ content, className = "" }) => {
 				{isLoading ? <Loading /> :
 					<div>
 						<ReactMarkdown remarkPlugins={[[remarkGfm]]} rehypePlugins={[[rehypeRaw, rehypeSanitize]]}
-							className={className}
 							components={{
 								code({ inline, className, children, ...props }) {
 									const match = /language-(\w+)/.exec(className || "");
@@ -30,7 +29,7 @@ const MarkdownContent = ({ content, className = "" }) => {
 											{children}
 										</SyntaxHighlighter>
 									) : (
-										<code className={className + " bg-gray-main rounded p-1 text-light-main"} {...props}>
+										<code className={"bg-gray-main rounded p-1 text-light-main"} {...props}>
 											{children}
 										</code>
 									);
