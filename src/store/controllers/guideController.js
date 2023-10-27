@@ -139,7 +139,7 @@ export const uploadCoverImage = (file, id) => {
 	return async dispatch => {
 		try {
 			const data = await sendRequest(`/guides/cover_image?guide_id=${id}`, 'POST', file, true);
-			dispatch(guideActions.setActiveGuide(data));
+			dispatch(guideActions.updateCoverImage(data.coverImage));
 		} catch (error) {
 			console.log(error);
 			if (error.cause.status === 401)

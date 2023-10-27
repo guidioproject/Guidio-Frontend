@@ -18,12 +18,14 @@ const guideSlice = createSlice({
 		setActiveGuide(state, action) {
 			state.activeGuide = action.payload;
 		},
-		filterActiveGuide(state) {
-			state.guidesData.guides = state.guidesData.guides.filter(guide => guide.guideId !== state.activeGuide.guideId);
+		updateCoverImage(state, action) {
+			state.activeGuide.coverImage = action.payload;
 		},
-
 		removeCoverImage(state) {
 			state.activeGuide.coverImage = null;
+		},
+		filterActiveGuide(state) {
+			state.guidesData.guides = state.guidesData.guides.filter(guide => guide.guideId !== state.activeGuide.guideId);
 		},
 		setError(state, action) {
 			state.guideError = action.payload;
