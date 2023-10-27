@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { clearAlerts, showAlert } from "../../../store/slices/uiSlice";
 import { useDispatch } from "react-redux";
 
@@ -10,11 +10,15 @@ import Alert from "../../ui/Alert";
 import messages from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
 
+import ReCaptcha from "./common/ReCaptcha";
+
 const Register = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const registerRef = useRef({});
+
+	const [isVerified, setIsVerified] = useState(false);
 
 	useEffect(() => {
 		dispatch(clearAlerts());
@@ -32,10 +36,16 @@ const Register = () => {
 			return false;
 		}
 
+		if (!isVerified) {
+			dispatch(showAlert('error', messages.error['error_captcha']))
+			return false;
+		}
+
 		if (password.value !== passwordConfirm.value) {
 			dispatch(showAlert('error', messages.error['error_passwords']));
 			return false;
 		}
+
 
 		dispatch(
 			registerUser({
@@ -56,8 +66,11 @@ const Register = () => {
 				<InputGroup inpRef={el => registerRef.current.lastName = el} lbl="Last Name" isHalf />
 			</div>
 			<InputGroup inpRef={el => registerRef.current.email = el} lbl="Email" />
-			<InputGroup inpRef={el => registerRef.current.password = el} lbl="Password" isPw />
-			<InputGroup inpRef={el => registerRef.current.passwordConfirm = el} lbl="Confirm Password" isPw />
+			<div className="flex gap-10">
+				<InputGroup inpRef={el => registerRef.current.password = el} lbl="Password" isPw />
+				<InputGroup inpRef={el => registerRef.current.passwordConfirm = el} lbl="Confirm Password" isPw />
+			</div>
+		<ReCaptcha setIsVerified={setIsVerified} />
 			<div className="inline-block mt-3 text-center">
 				<input
 					type="submit"
