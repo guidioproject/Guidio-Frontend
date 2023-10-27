@@ -1,7 +1,8 @@
 const messages = {
 	error: {
 		"server_error": {msg: 'Error! Unexpected error occured.', pages: ['*']},
-		"error_fields": {msg: "Error! Fields can't be empty", pages:['/auth/login', '/auth/register', '/profile']},
+		"error_fields": {msg: "Error! Fields can't be empty.", pages:['/auth/login', '/auth/register', '/profile']},
+		'error_captcha': {msg: 'Error! Captcha not verified.', pages: ['/auth/register', '/auth/login']},
 		"value_error.email": {msg: 'Error! Invalid email format.', pages: ['/auth/login']},
 		"invalid_credentials": {msg: 'Error! Wrong email or password.', pages: ['/auth/login']},
 		"unauthorized": {msg: 'Error! Your session has expired.', pages:['/']},
@@ -9,7 +10,7 @@ const messages = {
 		'value_error.any_str.min_length': {msg: 'Error! Password needs to have at least 8 characters.', pages: ['/auth/register']},
 		"guides_not_found": 'No guides found.',
 		"requested_a_non-existent_page": 'No instructors found.'
-	}, 
+	},
 	success: {
 		'login_success': {msg: 'Success! Successfully logged in.', pages: ['/']},
 		'logout_success': {msg: 'Success! Successfully logged out.', pages: ['/']},

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { clearAlerts, showAlert } from "../../../store/slices/uiSlice";
@@ -8,11 +8,13 @@ import { loginUser } from "../../../store/controllers/authController";
 import Alert from "../../ui/Alert";
 import messages from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
+import ReCaptcha from "./common/ReCaptcha";
 
 const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const [isVerified, setIsVerified] = useState(false);
 	const loginRef = useRef({});
 
 	useEffect(() => {
@@ -28,6 +30,12 @@ const Login = () => {
 			dispatch(showAlert('error', messages.error['error_fields']));
 			return false;
 		}
+
+		if (!isVerified) {
+			dispatch(showAlert('error', messages.error['error_captcha']))
+			return false;
+		}
+		
 		dispatch(loginUser({ email: email.value, password: password.value },
 			() => navigate('/')));
 	}
@@ -38,6 +46,7 @@ const Login = () => {
 			<Alert />
 			<InputGroup inpRef={el => loginRef.current.email = el} lbl="Email" />
 			<InputGroup inpRef={el => loginRef.current.password = el} lbl="Password" isPw />
+			<ReCaptcha setIsVerified={setIsVerified} />
 			<div className=" inline-block mt-10 text-center">
 				<input
 					type="submit"
