@@ -48,6 +48,10 @@ export const getUserByToken = function () {
 			dispatch(userActions.setUser(data));
 		} catch (err) {
 			dispatch(userActions.setUser(null));
+			if (document.cookie.startsWith('auth_token'))
+				document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+			console.log(err.message);
 			dispatch(showAlert('error', messages.error[err.message]));
 		}
 	};

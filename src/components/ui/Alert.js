@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
@@ -9,29 +9,27 @@ const Alert = ({ size = "full" }) => {
 	const [shouldShow, setShouldShow] = useState(false);
 
 	const { type, msgObj } = useSelector(state => state.ui.alert);
-	const { msg, pages } = msgObj;
+	const {msg, pages} = msgObj
+	
+	const checkPage = useCallback(page => {
+		if (page === '*' || page === pathname)
+			return true;
+
+		if ((page[0] === '^' && pathname.startsWith(page.slice(1))) ||
+			(page[page.length - 1] === '^' && pathname.endsWith(page.slice(0, page.length - 1))))
+			return true;
+	},[pathname]);
 
 	useEffect(() => {
-		function handlePages() {
-			if (pages.length === 1) {
-				if (pages[0] === '*' || pages[0] === pathname || (pages[0].startsWith('/guides') && pathname.startsWith('/guides')))
+			for (const page of pages) {
+				if (checkPage(page)) {
 					setShouldShow(true);
+					break;
+				}
 				else
 					setShouldShow(false);
 			}
-			else if (pages.length > 1) {
-				for (const element of pages) {
-					if (element === pathname || (element.startsWith('/guides') && pathname.startsWith('/guides'))) {
-						setShouldShow(true);
-						break;
-					}
-					else
-						setShouldShow(false);
-				}
-			}
-		}
-		handlePages();
-	}, [pathname, pages]);
+	}, [pathname, pages, checkPage]);
 
 	return (
 		<div

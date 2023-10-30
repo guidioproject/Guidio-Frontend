@@ -12,13 +12,13 @@ const GuideInfo = ({ activeGuide }) => {
 				<>
 					<div>
 						<span className="text-gray-dark text-xl italic">Author: </span>
-						<NavLink className="ml-5" to={"/instructors/" + activeGuide.user.userId}>
-							{activeGuide.user.userDetails?.avatar ?
+						<NavLink className="ml-5" to={"/instructors/" + activeGuide?.user?.userId}>
+							{activeGuide?.user?.userDetails?.avatar ?
 								<img src={"/" + activeGuide.user.userDetails.avatar} alt="Avatar"
 									className="w-[50px] inline rounded-[50%] mr-2" />
 								:
 								<FaUser className="rounded-[50%] inline bg-success-main text-5xl p-1 mr-5" />}
-							<h3 className="inline text-xl">{activeGuide.user.firstName} {activeGuide.user.lastName}</h3>
+							<h3 className="inline text-xl">{activeGuide?.user?.firstName} {activeGuide?.user?.lastName}</h3>
 						</NavLink>
 					</div>
 					<div className=" text-gray-dark text-xl italic font-bold">

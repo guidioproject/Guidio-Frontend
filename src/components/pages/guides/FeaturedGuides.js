@@ -21,7 +21,7 @@ const FeaturedGuides = ({ userId }) => {
 		<div className="w-[40%] bg-light-main p-5 rounded">
 			<h2 className=" text-2xl my-5">More from the author</h2>
 			{isLoading && <Loading />}
-			{guides && guides.map(guide =>
+			{guides?.map(guide =>
 				<NavLink to={`/guides/${guide.guideId}`} key={guide.guideId} className="flex mb-5 h-fit">
 					<img src={cardImg} alt="Preview" className="w-[30%] mr-5 rounded" />
 					<div>

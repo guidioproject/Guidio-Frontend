@@ -11,7 +11,7 @@ const uiSlice = createSlice({
 	initialState,
 	reducers: {
 		setAlert(state, action) {
-			state.alert = action.payload;
+			state.alert= action.payload;
 		},
 		setError(state, action) {
 			state.error = action.payload;

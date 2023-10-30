@@ -9,6 +9,7 @@ import DOMPurify from "dompurify";
 import { useNavigate } from "react-router-dom";
 import EditorButtons from "../../common/md/editor/EditorButtons";
 import Editor from "../../common/md/editor/Editor";
+import messages from "../../../store/messages";
 
 const Create = () => {
 	const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Create = () => {
 
 	function createGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showAlert('error', 'Fields cant be empty!'));
+			dispatch(showAlert('error', messages.error['error_fields']));
 			return;
 		}
 		dispatch(createGuide(title, content, note, isPublic, () => navigate('/')));
@@ -29,7 +30,7 @@ const Create = () => {
 	return (
 		<div className="bg-secondary-light p-10 pt-24">
 			<div className="flex justify-center">
-				<Alert size="half" />
+				<Alert size={"half"} />
 			</div>
 			<EditorButtons onCreateHandler={createGuideHandler} mode="create" />
 			<Editor

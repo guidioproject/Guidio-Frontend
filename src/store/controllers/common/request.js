@@ -43,7 +43,7 @@ export const sendRequest =  async(url, request, body, isFile) => {
 }
 
 export const handleErrorMessages = (dispatch, msg) => {
-	if (msg === 'unauthorized')
+	if (msg === 'unauthorized' || msg === 'not_enough_segments')
 		dispatch(getUserByToken());
 	else if (msg === 'guides_not_found' || msg === 'requested_a_non-existent_page')
 		dispatch(uiActions.setError(messages.error[msg]));

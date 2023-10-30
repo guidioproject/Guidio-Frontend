@@ -11,6 +11,7 @@ import { showAlert } from "../../../store/slices/uiSlice";
 import messages from "../../../store/messages";
 import GuideHeader from "../guides/GuideHeader";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../ui/Alert";
 
 
 
@@ -27,7 +28,7 @@ const Update = () => {
 
 	function updateGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showAlert('success', messages.error['error_fields']));
+			dispatch(showAlert('error', messages.error['error_fields']));
 			return;
 		}
 		dispatch(updateGuide(title, content, guideId, note, isPublic, () => {
@@ -38,6 +39,9 @@ const Update = () => {
 		<>
 			<GuideHeader />
 			<div className="bg-secondary-light p-10">
+				<div className="flex justify-center">
+					<Alert size="half" />
+				</div>
 				<EditorButtons onUpdateHandler={updateGuideHandler} published={published} mode="update" />
 				<Editor
 					title={title}

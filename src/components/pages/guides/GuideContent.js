@@ -27,7 +27,7 @@ const GuideContent = ({ id, activeGuide, activeUser }) => {
 			<div className="flex justify-center">
 				<Alert size={"half"} />
 			</div>
-			{activeUser.userId === activeGuide.user?.userId &&
+			{activeUser?.userId === activeGuide.user?.userId &&
 				<div className="flex gap-5">
 					<NavLink className="inline-block py-2 px-4 my-5 rounded-md bg-secondary-main text-light-main text-lg font-medium"
 						to={`/guides/${id}/update`}>
@@ -41,7 +41,7 @@ const GuideContent = ({ id, activeGuide, activeUser }) => {
 			<GuideInfo activeGuide={activeGuide} />
 			<div className="flex gap-10">
 				<MarkdownContent content={content} lastModified={activeGuide.lastModified} className="h-fit" />
-				<FeaturedGuides userId={activeGuide.user.userId} guideId={id} />
+				<FeaturedGuides userId={activeGuide?.user?.userId} guideId={id} />
 			</div>
 		</div>
 	)
