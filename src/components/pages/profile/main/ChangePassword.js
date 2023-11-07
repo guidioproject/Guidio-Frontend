@@ -13,9 +13,10 @@ const ChangePassword = ({ user }) => {
 		const { currentPassword, password } = pwRef.current;
 
 		if (!currentPassword.value || !password.value) {
-			dispatch(showAlert('success', messages.error['error_fields']));
+			dispatch(showAlert('error', messages.error['error_fields']));
 			return false;
 		}
+
 		dispatch(
 			changePassword(user.userId, {
 				current_password: currentPassword.value,

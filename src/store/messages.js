@@ -5,15 +5,17 @@ const messages = {
 	error: {
 		"server_error": {msg: 'Error! Unexpected error occured.', pages: ['*']},
 		"error_fields": {msg: "Error! Fields can't be empty", pages:['/auth/login', '/auth/register', '/profile', '/create', '/update^']},
+		"value_error": {msg: "Error! Password needs to include special characters (@$!%*?&) and number", pages: ['/auth/register', '/profile']},
+		"invalid_password": {msg: "Error! Invalid password", pages: ['/profile']},
 		"value_error.email": {msg: 'Error! Invalid email format.', pages: ['/auth/login']},
 		"invalid_credentials": {msg: 'Error! Wrong email or password.', pages: ['/auth/login']},
 		"unauthorized": {msg: 'Error! Your session has expired.', pages:['/']},
 		"not_enough_segments": {msg: 'Error! Your session has expired.', pages:['/']},
 		"error_passwords": {msg: "Error! Password don't match.", pages: ['/auth/register', '/profile']},
-		'value_error.any_str.min_length': {msg: 'Error! Password needs to have at least 8 characters.', pages: ['/auth/register']},
+		'value_error.any_str.min_length': {msg: 'Error! Password needs to have at least 8 characters.', pages: ['/auth/register', '/profile']},
 		"guides_not_found": 'No guides found.',
 		"requested_a_non-existent_page": 'No instructors found.'
-	}, 
+	},
 	success: {
 		'login_success': {msg: 'Success! Successfully logged in.', pages: ['/']},
 		'logout_success': {msg: 'Success! Successfully logged out.', pages: ['/']},
