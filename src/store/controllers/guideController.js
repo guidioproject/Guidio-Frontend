@@ -54,13 +54,13 @@ export const searchGuides = function (title, page) {
 	}
 }
 
-export const getGuidesByUserId = (id, page, cb) => {
+export const getGuidesByUserId = (id, page, size, cb) => {
 	return async dispatch => {
 		try {
 			dispatch(uiActions.setError(null));
 			page === 1 && dispatch(guideActions.setGuides({}));
 			dispatch(uiActions.setIsLoading(true));
-			const data = await sendRequest(`/guides/${id}?page=${page}&page_size=12`, 'GET');
+			const data = await sendRequest(`/guides/${id}?page=${page}&page_size=${size}`, 'GET');
 			await new Promise((res) => { setTimeout(() => { res() }, 500) });
 			dispatch(uiActions.setIsLoading(false));
 			if (page === 1)

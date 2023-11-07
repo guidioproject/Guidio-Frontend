@@ -11,7 +11,7 @@ import Navbar from "./components/layout/Navbar"
 import Home from "./components/pages/home/Home"
 import Profile from "./components/pages/profile/Profile";
 import Create from "./components/pages/create/Create";
-import Guide from './components/pages/guides/GuideDetails';
+import Guide from './components/pages/guides/Guide';
 import Instructors from "./components/pages/instructors/Instructors";
 import Login from "./components/pages/auth/Login";
 import Register from "./components/pages/auth/Register";

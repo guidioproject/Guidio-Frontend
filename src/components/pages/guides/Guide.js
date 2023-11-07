@@ -3,7 +3,7 @@ import GuideContent from "./GuideContent"
 import GuideHeader from "./GuideHeader";
 import { useParams } from "react-router-dom";
 
-const GuideDetails = () => {
+const Guide = () => {
 	const { id } = useParams();
 
 	const activeGuide = useSelector(state => state.guide.activeGuide);
@@ -18,4 +18,4 @@ const GuideDetails = () => {
 		</div>
 	)
 }
-export default GuideDetails
+export default Guide

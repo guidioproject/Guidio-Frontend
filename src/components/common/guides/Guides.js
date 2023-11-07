@@ -13,7 +13,7 @@ const Guides = ({ user, isSingleUser }) => {
 	const { guides, pages } = useSelector(state => state.guide.guidesData);
 
 	const getGuidesHandler = useCallback(activePage => {
-		isSingleUser ? dispatch(getGuidesByUserId(user.userId, activePage)) : dispatch(getGuides(activePage));
+		isSingleUser ? dispatch(getGuidesByUserId(user.userId, activePage, 12)) : dispatch(getGuides(activePage));
 	}, [dispatch, isSingleUser, user]);
 
 	const searchGuidesHandler = useCallback((title, activePage) => {
