@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 
-const Error = () => {
+const ErrorMsg = () => {
   const error = useSelector(state => state.ui.error);
   return (
     <>
@@ -8,4 +8,4 @@ const Error = () => {
     </>
   )
 }
-export default Error
+export default ErrorMsg

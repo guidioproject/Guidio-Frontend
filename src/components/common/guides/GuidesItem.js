@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import cardImg from "../../../assets/card_item.png";
 import { FaUser } from "react-icons/fa";
-const Guide = ({guide}) => {
+const GuidesItem = ({guide}) => {
   return (
 	<NavLink to={`/guides/${guide.guideId}`} className="group w-full mb-10  hover:cursor-pointer" key={`${guide.guideId} - ${guide.title}`}>
 	<div className="relative">
@@ -24,4 +24,4 @@ const Guide = ({guide}) => {
 </NavLink>
   )
 }
-export default Guide
+export default GuidesItem

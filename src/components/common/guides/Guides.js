@@ -4,7 +4,7 @@ import { getGuides, searchGuides, getGuidesByUserId } from "../../../store/contr
 import { useCallback, useEffect } from "react";
 
 import List from "../list/List"
-import Guide from "./GuidesItem";
+import GuidesItem from "./GuidesItem";
 import { resetGuides } from "../../../store/slices/guideSlice";
 
 const Guides = ({ user, isSingleUser }) => {
@@ -36,7 +36,7 @@ const Guides = ({ user, isSingleUser }) => {
 			<div className={`grid ${isSingleUser ? "grid-cols-3" : "grid-cols-4"} w-full gap-5`}>
 				{guides &&
 					guides.map(guide =>
-						<Guide guide={guide} key={guide.guideId} />
+						<GuidesItem guide={guide} key={guide.guideId} />
 					)}
 			</div>
 		</List>

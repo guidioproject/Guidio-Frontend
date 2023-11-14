@@ -3,14 +3,13 @@ import { useSelector } from "react-redux";
 
 import Search from "./Search";
 import Loading from "../../ui/Loading";
-import Error from "../../ui/Error";
-
+import ErrorMsg from "../../ui/ErrorMsg";
 const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
 
 	const [searchVal, setSearchVal] = useState('');
 	const [activePage, setActivePage] = useState(1);
 
-	const { isLoading } = useSelector(state => state.ui);
+	const { isLoading, error } = useSelector(state => state.ui);
 
 	useEffect(() => {
 		function handleScroll() {
@@ -51,7 +50,7 @@ const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
 			<h2 className="text-5xl py-10">{title}</h2>
 			{(isLoading && !items) && <Loading />}
 			{children}
-			<Error />
+			{(!isLoading && error) && <ErrorMsg />}
 			{(isLoading && items) && <Loading />}
 		</div>
 	)

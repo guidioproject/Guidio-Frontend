@@ -10,7 +10,7 @@ const Alert = ({ size = "full" }) => {
 
 	const { type, msgObj } = useSelector(state => state.ui.alert);
 	const {msg, pages} = msgObj
-	
+
 	const checkPage = useCallback(page => {
 		if (page === '*' || page === pathname)
 			return true;

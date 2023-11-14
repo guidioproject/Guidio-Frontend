@@ -26,23 +26,30 @@ export const uiActions = uiSlice.actions;
 
 export default uiSlice;
 
-let timeout;
+let alertTimeout;
 
 export const showAlert = (type, msgObj) => {
-	clearTimeout(timeout);
+	clearTimeout(alertTimeout);
 	return async dispatch => {
 			dispatch(uiActions.setAlert({type, msgObj}))
-			timeout = setTimeout(() => {
+			alertTimeout = setTimeout(() => {
 				dispatch(uiActions.setAlert({type: '',  msgObj: {msg: '', pages: []}}));
-				timeout = null;
+				alertTimeout = null;
 			}, 3000);
 	};
 };
 
 export const clearAlerts = () => {
-	clearTimeout(timeout);
+	clearTimeout(alertTimeout);
 
 	return async dispatch => {
 		dispatch(uiActions.setAlert({type: '',  msgObj: {msg: '', pages: []}}));
+	}
+}
+
+export const clearLoading = () => {
+	return async dispatch => {
+		await new Promise((res) => { setTimeout(() => { res() }, 500) });
+		dispatch(uiActions.setIsLoading(false));
 	}
 }

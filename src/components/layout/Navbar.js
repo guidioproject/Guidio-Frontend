@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { FaCaretDown, FaCaretRight, FaPlus, FaUser } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
-import Logo from "./common/Logo";
 import { logoutUser } from "../../store/controllers/authController";
+
+import { FaCaretDown, FaCaretRight, FaPlus, FaUser } from "react-icons/fa";
+import Logo from "./common/Logo";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
@@ -31,11 +32,11 @@ const Navbar = () => {
 							<FaCaretDown className="inline text-3xl" />
 							<div className="hidden group-hover:block absolute left-0 border-l-2 mt-3 pl-2 bg-primary-main rounded-md w-full z-10">
 								<NavLink className="flex items-center py-2" to="/profile">
-									<FaCaretRight className="mr-2" /> My profile
+									<FaCaretRight className="mr-2" /> Profile Settings
 								</NavLink>
-								<NavLink className="flex items-center py-2" to="/profile">
-									<FaCaretRight className="mr-2" /> Edit profile
-								</NavLink>
+								{isInstructor && <NavLink className="flex items-center py-2" to={`/instructors/${activeUser.userId}`}>
+									<FaCaretRight className="mr-2" /> Public profile
+								</NavLink>}
 							</div>
 						</button>
 						{isInstructor &&
