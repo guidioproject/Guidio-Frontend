@@ -116,7 +116,7 @@ export const deleteGuide = (id, cb) => {
 export const uploadCoverImage = (file, id) => {
 	return async dispatch => {
 		try {
-			const data = await sendRequest(`/guides/cover_image?guide_id=${id}`, 'POST', file, dispatch, true);
+			const data = await sendRequest(`/guides/cover_image?guide_id=${id}`, 'POST', file, dispatch);
 			dispatch(guideActions.updateCoverImage(data.coverImage));
 		} catch (err) {
 			handleErrorMessages(dispatch, err.message);

@@ -53,7 +53,7 @@ export const getProfessionByName = (name) => {
 export const uploadImage = (file, type) => {
 	return async dispatch => {
 		try {
-			const data = await sendRequest(`/users/${type}`, 'POST', file, true);
+			const data = await sendRequest(`/users/${type}`, 'POST', file, dispatch);
 			dispatch(userActions.setUser(data));
 		} catch (err) {
 			handleErrorMessages(dispatch, err.message);
@@ -64,7 +64,7 @@ export const uploadImage = (file, type) => {
 export const deleteImage = (type, cb) => {
 	return async dispatch => {
 		try {
-			await sendRequest(`/users/${type}`, 'DELETE');
+			await sendRequest(`/users/${type}`, 'DELETE', null, dispatch);
 			cb();
 			if (type === 'avatar')
 				dispatch(userActions.removeAvatarImage());

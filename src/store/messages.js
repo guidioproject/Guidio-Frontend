@@ -11,6 +11,7 @@ const messages = {
 		"invalid_credentials": {msg: 'Error! Wrong email or password.', pages: ['/auth/login']},
 		"unauthorized": {msg: 'Error! Your session has expired.', pages:['/']},
 		"not_enough_segments": {msg: 'Error! Your session has expired.', pages:['/']},
+		"signature_has_expired.": {msg: 'Error! Your session has expired.', pages:['/']},
 		"error_passwords": {msg: "Error! Password don't match.", pages: ['/auth/register', '/profile']},
 		'value_error.any_str.min_length': {msg: 'Error! Password needs to have at least 8 characters.', pages: ['/auth/register', '/profile']},
 		"guides_not_found": 'No guides found.',
