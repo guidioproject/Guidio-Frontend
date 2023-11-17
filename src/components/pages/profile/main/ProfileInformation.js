@@ -2,13 +2,14 @@ import { useState, useRef } from "react"
 import { useDispatch } from "react-redux";
 
 import { updateUser } from "../../../../store/controllers/userController";
-import { showAlert } from "../../../../store/slices/uiSlice";
 
 import Avatar from "./Avatar";
 import Profession from "./Profession";
 import InstructorToggle from "./InstructorToggle";
 import InputGroup from "../common/InputGroup";
 import ButtonGroup from "./ButtonGroup";
+import { uiActions } from "../../../../store/slices/uiSlice";
+import messages from "../../../../store/messages";
 
 const ProfileInformation = ({ user }) => {
 	const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const ProfileInformation = ({ user }) => {
 		const fields = formRef.current;
 
 		if (fields.firstName.value === "" || fields.lastName.value === "" || fields.email.value === "") {
-			dispatch(showAlert('error', "Fields can't be empty!"));
+			dispatch(uiActions.showAlert({type: 'error', msgObj: messages.error['error_fields']}));
 			return;
 		}
 

@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { clearAlerts, showAlert } from "../../../store/slices/uiSlice";
 import { useDispatch } from "react-redux";
 import Form from "./common/Form";
 import { loginUser } from "../../../store/controllers/authController";
 import Alert from "../../ui/Alert";
 import messages from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
+import { uiActions } from "../../../store/slices/uiSlice";
 
 const Login = () => {
 	const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Login = () => {
 	const loginRef = useRef({});
 
 	useEffect(() => {
-		dispatch(clearAlerts());
+		dispatch(uiActions.clearAlert());
 		loginRef.current.email.focus()
 	}, [dispatch]);
 
@@ -25,7 +25,7 @@ const Login = () => {
 		const { email, password } = loginRef.current;
 
 		if (!email.value || !password.value) {
-			dispatch(showAlert('error', messages.error['error_fields']));
+			dispatch(uiActions.showAlert({type: 'error', msgConf: messages.error['error_fields']}));
 			return false;
 		}
 		dispatch(loginUser({ email: email.value, password: password.value },

@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useEffect, useRef } from "react";
-import { clearAlerts, showAlert } from "../../../store/slices/uiSlice";
 import { useDispatch } from "react-redux";
 
 import Form from "./common/Form";
@@ -9,6 +8,7 @@ import { registerUser } from "../../../store/controllers/authController";
 import Alert from "../../ui/Alert";
 import messages from "../../../store/messages";
 import InputGroup from "./common/InputGroup";
+import { uiActions } from "../../../store/slices/uiSlice";
 
 const Register = () => {
 	const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Register = () => {
 	const registerRef = useRef({});
 
 	useEffect(() => {
-		dispatch(clearAlerts());
+		dispatch(uiActions.clearAlert());
 		registerRef.current.firstName.focus();
 	}, [dispatch]);
 
@@ -28,12 +28,12 @@ const Register = () => {
 			registerRef.current;
 
 		if (!firstName.value || !lastName.value || !email.value || !password.value || !passwordConfirm.value) {
-			dispatch(showAlert('error', messages.error['error_fields']));
+			dispatch(uiActions.showAlert({type: 'error', msgConf: messages.error['error_fields']}));
 			return false;
 		}
 
 		if (password.value !== passwordConfirm.value) {
-			dispatch(showAlert('error', messages.error['error_passwords']));
+			dispatch(uiActions.showAlert({type: 'error', msgConf: messages.error['error_passwords']}));
 			return false;
 		}
 

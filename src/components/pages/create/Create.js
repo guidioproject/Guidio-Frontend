@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createGuide } from "../../../store/controllers/guideController";
-import { showAlert } from "../../../store/slices/uiSlice";
+import { useNavigate } from "react-router-dom";
 
+import { uiActions } from "../../../store/slices/uiSlice";
+import { createGuide } from "../../../store/controllers/guideController";
+
+import Editor from "../../common/md/editor/Editor";
+import EditorButtons from "../../common/md/editor/EditorButtons";
 import Alert from '../../ui/Alert';
 
 import DOMPurify from "dompurify";
-import { useNavigate } from "react-router-dom";
-import EditorButtons from "../../common/md/editor/EditorButtons";
-import Editor from "../../common/md/editor/Editor";
+
 import messages from "../../../store/messages";
 
 const Create = () => {
@@ -22,7 +24,7 @@ const Create = () => {
 
 	function createGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showAlert('error', messages.error['error_fields']));
+			dispatch(uiActions.showAlert({type: 'error', msgConf: messages.error['error_fields']}));
 			return;
 		}
 		dispatch(createGuide(title, content, note, isPublic, () => navigate('/')));

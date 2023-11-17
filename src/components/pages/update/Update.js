@@ -7,7 +7,7 @@ import EditorButtons from "../../common/md/editor/EditorButtons";
 import DOMPurify from "dompurify";
 
 import { updateGuide } from "../../../store/controllers/guideController";
-import { showAlert } from "../../../store/slices/uiSlice";
+import { uiActions } from "../../../store/slices/uiSlice";
 import messages from "../../../store/messages";
 import GuideHeader from "../guides/GuideHeader";
 import { useNavigate } from "react-router-dom";
@@ -21,18 +21,18 @@ const Update = () => {
 
 	const activeGuide = useSelector(state => state.guide.activeGuide);
 
-	const {guideId, published} = activeGuide;
+	const { guideId, published } = activeGuide;
 	const [content, setContent] = useState(activeGuide.content);
 	const [title, setTitle] = useState(activeGuide.title.substring(2));
 	const [note, setNote] = useState(activeGuide.note);
 
 	function updateGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(showAlert('error', messages.error['error_fields']));
+			dispatch(uiActions.showAlert({type: 'error', msgObj: messages.error['error_fields']}));
 			return;
 		}
 		dispatch(updateGuide(title, content, guideId, note, isPublic, () => {
-			 navigate(`/guides/${guideId}`);
+			navigate(`/guides/${guideId}`);
 		}));
 	}
 	return (

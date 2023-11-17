@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { FaExclamationCircle, FaInfo } from "react-icons/fa";
+import { uiActions } from "../../store/slices/uiSlice";
 
 const Alert = ({ size = "full" }) => {
 	const { pathname } = useLocation();
+	const dispatch = useDispatch();
 	const [shouldShow, setShouldShow] = useState(false);
 
-	const { type, msgObj } = useSelector(state => state.ui.alert);
-	const {msg, pages} = msgObj
+	const { type, msgConf } = useSelector(state => state.ui.alert);
+	const {msg, pages} = msgConf;
 
 	const checkPage = useCallback(page => {
 		if (page === '*' || page === pathname)
@@ -20,16 +22,29 @@ const Alert = ({ size = "full" }) => {
 			return true;
 	},[pathname]);
 
+	const timeout = useRef();
 	useEffect(() => {
+		clearTimeout(timeout.current);
+		if (msg) {
+			let correctPage = false;
 			for (const page of pages) {
 				if (checkPage(page)) {
-					setShouldShow(true);
+					correctPage = true;
 					break;
 				}
-				else
-					setShouldShow(false);
 			}
-	}, [pathname, pages, checkPage]);
+
+			if (correctPage) {
+				setShouldShow(true);
+				timeout.current = setTimeout(() => {
+					dispatch(uiActions.clearAlert());
+					timeout.current = null;
+					setShouldShow(false);
+				}, 3000);
+			}
+	}
+	return () => clearTimeout(timeout.current);
+}, [pathname, pages, checkPage, dispatch, msg]);
 
 	return (
 		<div
@@ -42,7 +57,6 @@ const Alert = ({ size = "full" }) => {
 			{type === "error" && <FaExclamationCircle className="inline text-xl mr-1" />}
 			{type === "success" && <FaInfo className="inline text-xl mr-1" />}
 			{msg}
-		</div>
-	);
-};
+		</div>);
+}
 export default Alert;
