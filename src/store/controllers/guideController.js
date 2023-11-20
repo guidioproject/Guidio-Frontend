@@ -64,12 +64,12 @@ export const createGuide = function (title, content, note, published, cb) {
 			await sendRequest('/guides', 'POST', { title, content, note, published }, dispatch);
 			cb();
 			if (published)
-				dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['guide_create_success']}));
+				dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['guide_create_success'] }));
 			else
-				dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['guide_draft_success']}));
+				dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['guide_draft_success'] }));
 		} catch (err) {
-	handleErrorMessages(dispatch, err.message);
-}
+			handleErrorMessages(dispatch, err.message);
+		}
 	}
 }
 
@@ -80,12 +80,12 @@ export const updateGuide = function (title, content, id, note, published, cb) {
 			cb();
 
 			if (published)
-				dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['guide_update_success']}));
+				dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['guide_update_success'] }));
 			else
-				dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['guide_draft_success']}));
+				dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['guide_draft_success'] }));
 		} catch (err) {
-	handleErrorMessages(dispatch, err.message);
-}
+			handleErrorMessages(dispatch, err.message);
+		}
 	}
 }
 
@@ -106,7 +106,7 @@ export const deleteGuide = (id, cb) => {
 		try {
 			await sendRequest(`/guides/${id}`, "DELETE", null, dispatch);
 			cb();
-			dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['guide_delete_success']}));
+			dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['guide_delete_success'] }));
 		} catch (err) {
 			handleErrorMessages(dispatch, err.message);
 		}

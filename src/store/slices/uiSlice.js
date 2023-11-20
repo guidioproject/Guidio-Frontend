@@ -14,7 +14,7 @@ const uiSlice = createSlice({
 			const { type, msgConf } = action.payload;
 			state.alert = { type, msgConf };
 		},
-		clearAlert(state, action) {
+		clearAlert(state) {
 			state.alert = { type: '', msgConf: { msg: '', pages: [] } };
 		},
 		setError(state, action) {
@@ -29,22 +29,3 @@ const uiSlice = createSlice({
 export const uiActions = uiSlice.actions;
 
 export default uiSlice;
-
-// export const showAlert = (type, msgObj) => {
-// 	clearTimeout(alertTimeout);
-// 	return async dispatch => {
-// 			dispatch(uiActions.setAlert({type, msgObj}))
-// 			alertTimeout = setTimeout(() => {
-// 				dispatch(uiActions.setAlert({type: '',  msgObj: {msg: '', pages: []}}));
-// 				alertTimeout = null;
-// 			}, 3000);
-// 	};
-// };
-
-// export const clearAlerts = () => {
-// 	clearTimeout(alertTimeout);
-
-// 	return async dispatch => {
-// 		dispatch(uiActions.setAlert({type: '',  msgObj: {msg: '', pages: []}}));
-// 	}
-// }

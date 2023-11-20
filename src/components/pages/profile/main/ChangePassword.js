@@ -13,7 +13,7 @@ const ChangePassword = ({ user }) => {
 		const { currentPassword, password } = pwRef.current;
 
 		if (!currentPassword.value || !password.value) {
-			dispatch(uiActions.showAlert({type: 'error', msgObj: messages.error['error_fields']}));
+			dispatch(uiActions.showAlert({ type: 'error', msgConf: messages.error['error_fields'] }));
 			return false;
 		}
 

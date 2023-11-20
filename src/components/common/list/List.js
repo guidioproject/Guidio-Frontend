@@ -41,7 +41,7 @@ const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
 	}, [searchVal]);
 
 	return (
-		<div className={`px-20 min-h-[100vh] pt-48`}>
+		<div className={`px-20 min-h-[100vh]`}>
 			{(user && onSearch) &&
 				<Search
 					searchVal={searchVal}

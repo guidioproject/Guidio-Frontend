@@ -28,7 +28,7 @@ const Update = () => {
 
 	function updateGuideHandler(isPublic) {
 		if (title === '' || content === '') {
-			dispatch(uiActions.showAlert({type: 'error', msgObj: messages.error['error_fields']}));
+			dispatch(uiActions.showAlert({type: 'error', msgConf: messages.error['error_fields']}));
 			return;
 		}
 		dispatch(updateGuide(title, content, guideId, note, isPublic, () => {

@@ -23,7 +23,7 @@ const ProfileInformation = ({ user }) => {
 		const fields = formRef.current;
 
 		if (fields.firstName.value === "" || fields.lastName.value === "" || fields.email.value === "") {
-			dispatch(uiActions.showAlert({type: 'error', msgObj: messages.error['error_fields']}));
+			dispatch(uiActions.showAlert({ type: 'error', msgConf: messages.error['error_fields'] }));
 			return;
 		}
 

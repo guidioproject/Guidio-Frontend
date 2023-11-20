@@ -3,7 +3,7 @@ import { useCallback, useEffect } from "react";
 
 import { getInstructors, searchInstructors } from "../../../store/controllers/instructorController";
 
-import Instructor from "./InstructorsItem";
+import InstructorsItem from "./InstructorsItem";
 import List from "../../common/list/List";
 import { resetInstructors } from "../../../store/slices/instructorSlice";
 
@@ -26,7 +26,7 @@ const Instructors = () => {
 	}, [dispatch]);
 
 	return (
-		<div className="bg-bg-main py-5">
+		<div className="bg-bg-main py-5 pt-48">
 			<List
 				user={activeUser}
 				title="Instructors"
@@ -38,7 +38,7 @@ const Instructors = () => {
 				<div className="grid grid-cols-4 w-full gap-5">
 					{instructors &&
 						instructors.map(instructor =>
-							<Instructor instructor={instructor} key={instructor.userId} />
+							<InstructorsItem instructor={instructor} key={instructor.userId} />
 						)}
 				</div>
 			</List>

@@ -25,21 +25,23 @@ const Guides = ({ user, isSingleUser }) => {
 	}, [dispatch]);
 
 	return (
-		<List
-			user={user}
-			title="Guides"
-			onSearch={isSingleUser ? null : searchGuidesHandler}
-			onGet={getGuidesHandler}
-			items={guides}
-			pages={pages}
-		>
-			<div className={`grid ${isSingleUser ? "grid-cols-3" : "grid-cols-4"} w-full gap-5`}>
-				{guides &&
-					guides.map(guide =>
-						<GuidesItem guide={guide} key={guide.guideId} />
-					)}
-			</div>
-		</List>
+		<div className={`${!isSingleUser && "pt-48"}`}>
+			<List
+				user={user}
+				title="Guides"
+				onSearch={isSingleUser ? null : searchGuidesHandler}
+				onGet={getGuidesHandler}
+				items={guides}
+				pages={pages}
+			>
+				<div className={`grid ${isSingleUser ? "grid-cols-3" : "grid-cols-4"} w-full gap-5`}>
+					{guides &&
+						guides.map(guide =>
+							<GuidesItem guide={guide} key={guide.guideId} />
+						)}
+				</div>
+			</List>
+		</div>
 	)
 }
 export default Guides

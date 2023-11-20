@@ -9,7 +9,7 @@ export const deleteUser = (id, cb) => {
 			await sendRequest(`/users/${id}`, "DELETE", null, dispatch);
 			dispatch(userActions.removeUser());
 			cb();
-			dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['account_delete_success']}));
+			dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['account_delete_success'] }));
 		} catch (err) {
 			handleErrorMessages(dispatch, err.message);
 		}
@@ -21,7 +21,7 @@ export const updateUser = (id, formData) => {
 		try {
 			const newUser = await sendRequest(`/users/${id}`, "PUT", formData, dispatch);
 			dispatch(userActions.setUser(newUser));
-			dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['account_update_success']}));
+			dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['account_update_success'] }));
 		} catch (err) {
 			handleErrorMessages(dispatch, err.message);
 		}
@@ -32,7 +32,7 @@ export const changePassword = (id, formData) => {
 	return async (dispatch) => {
 		try {
 			await sendRequest(`/users/${id}/update_password`, "PUT", formData, dispatch);
-			dispatch(uiActions.showAlert({type: 'success', msgObj: messages.success['pw_change_success']}));
+			dispatch(uiActions.showAlert({ type: 'success', msgConf: messages.success['pw_change_success'] }));
 		} catch (err) {
 			handleErrorMessages(dispatch, err.message);
 		}

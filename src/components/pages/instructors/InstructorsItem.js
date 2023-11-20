@@ -1,7 +1,7 @@
 import { FaGithub, FaGlobe, FaLinkedin, FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
-const Instructor = ({ instructor }) => {
+const InstructorsItem = ({ instructor }) => {
 
 	const { userId, userDetails, firstName, lastName } = instructor;
 
@@ -39,4 +39,4 @@ const Instructor = ({ instructor }) => {
 		</div>
 	)
 }
-export default Instructor
+export default InstructorsItem

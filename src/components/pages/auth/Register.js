@@ -49,7 +49,7 @@ const Register = () => {
 
 	return (
 		<Form onSubmit={registerHandler}>
-			<h1 className="text-5xl font-bold">Register</h1>
+			<h1 className="text-5xl font-bold pb-5">Register</h1>
 			<Alert />
 			<div className="flex gap-10">
 				<InputGroup inpRef={el => registerRef.current.firstName = el} lbl="First Name" isHalf />
