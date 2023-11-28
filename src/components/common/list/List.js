@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import Search from "./Search";
 import Loading from "../../ui/Loading";
 import ErrorMsg from "../../ui/ErrorMsg";
-const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
+const List = ({ children, user, title, onSearch, onGet, items, pages, resource }) => {
 
 	const [searchVal, setSearchVal] = useState('');
 	const [activePage, setActivePage] = useState(1);
 
-	const { isLoading, error } = useSelector(state => state.ui);
+	const { loading, error } = useSelector(state => state.ui);
 
 	useEffect(() => {
 		function handleScroll() {
@@ -39,7 +39,7 @@ const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
 	useEffect(() => {
 		setActivePage(1);
 	}, [searchVal]);
-
+	console.log(items);
 	return (
 		<div className={`px-20 min-h-[100vh]`}>
 			{(user && onSearch) &&
@@ -48,10 +48,10 @@ const List = ({ children, user, title, onSearch, onGet, items, pages }) => {
 					setSearchVal={setSearchVal}
 				/>}
 			<h2 className="text-5xl py-10">{title}</h2>
-			{(isLoading && !items) && <Loading />}
+			{(!items && loading === resource) && <Loading />}
 			{children}
-			{(!isLoading && error) && <ErrorMsg />}
-			{(isLoading && items) && <Loading />}
+			{(!loading && error) && <ErrorMsg />}
+			{(items && loading === resource) && <Loading resource={resource} />}
 		</div>
 	)
 }

@@ -36,7 +36,7 @@ const guideSlice = createSlice({
 export const resetGuides = () => {
 	return async dispatch => {
 		dispatch(uiActions.setError(null));
-		dispatch(uiActions.setIsLoading(true));
+		dispatch(uiActions.setLoading('guides'));
 		dispatch(guideActions.setGuides({}));
 	}
 }

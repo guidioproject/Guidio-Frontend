@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	alert: { type: '', msgConf: { msg: '', pages: [] } },
 	error: null,
-	isLoading: false
+	loading: null
 };
 
 const uiSlice = createSlice({
@@ -20,8 +20,8 @@ const uiSlice = createSlice({
 		setError(state, action) {
 			state.error = action.payload;
 		},
-		setIsLoading(state, action) {
-			state.isLoading = action.payload;
+		setLoading(state, action) {
+			state.loading = action.payload;
 		}
 	}
 });

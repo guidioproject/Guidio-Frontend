@@ -5,8 +5,10 @@ import { getUserByToken } from "../authController";
 export const sendRequest = async (url, request, body, dispatch) => {
 	const isFile = body instanceof FormData;
 
+	const resource =(url.includes('/auth') && 'auth') || (url.includes('/guides') && 'guides') || (url.includes('/users') && 'users');
+
 	dispatch(uiActions.setError(null));
-	dispatch(uiActions.setIsLoading(true));
+	dispatch(uiActions.setLoading(resource));
 
 	if (body != null && !isFile)
 		body = JSON.stringify(body);
@@ -19,8 +21,7 @@ export const sendRequest = async (url, request, body, dispatch) => {
 		} : undefined,
 		body
 	});
-
-	dispatch(uiActions.setIsLoading(false));
+	dispatch(uiActions.setLoading(null));
 
 	if (res.status === 500)
 		throw new Error('server_error');

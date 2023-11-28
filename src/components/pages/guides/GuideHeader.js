@@ -9,7 +9,7 @@ const GuideHeader = () => {
 	const dispatch = useDispatch();
 	const fileRef = useRef();
 
-	const isLoading = useSelector(state => state.ui.isLoading);
+	const loading = useSelector(state => state.ui.loading);
 
 	const activeUser = useSelector(state => state.user.activeUser);
 	const activeGuide = useSelector(state => state.guide.activeGuide);
@@ -24,7 +24,7 @@ const GuideHeader = () => {
 	}
 	return (
 		<header className="h-[40vh] relative bg-fixed flex justify-center items-center">
-			{isLoading ?
+			{loading === 'guides' ?
 				<Loading /> :
 				<>
 					<img src={activeGuide.coverImage ? '/' + activeGuide.coverImage : img} alt="Cover" className="absolute w-full h-full object-cover z-1" />

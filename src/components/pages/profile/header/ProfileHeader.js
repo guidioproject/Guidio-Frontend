@@ -11,7 +11,7 @@ const ProfileHeader = ({ user, isEditable }) => {
 	const dispatch = useDispatch();
 	const fileRef = useRef();
 
-	const isLoading = useSelector(state => state.ui.isLoading);
+	const loading = useSelector(state => state.ui.loading);
 
 	function onUpload() {
 		const formData = new FormData();
@@ -25,7 +25,7 @@ const ProfileHeader = ({ user, isEditable }) => {
 
 	return (
 		<header className="h-[65vh] relative mb-10 bg-fixed flex justify-center items-center">
-			{isLoading ?
+			{loading === 'users' ?
 				<Loading /> :
 				<>
 					<img src={user?.userDetails?.coverImage ? `/${user?.userDetails?.coverImage}` : img} alt="Cover" className="absolute w-full h-full object-cover z-1" />

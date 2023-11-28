@@ -25,7 +25,7 @@ const instructorSlice = createSlice({
 export const resetInstructors = () => {
 	return async dispatch => {
 		dispatch(uiActions.setError(null));
-		dispatch(uiActions.setIsLoading(true));
+		dispatch(uiActions.setLoading('users'));
 		dispatch(instructorActions.setInstructors({}));
 	}
 }

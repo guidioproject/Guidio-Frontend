@@ -34,6 +34,7 @@ const Instructors = () => {
 				onGet={getInstructorsHandler}
 				items={instructors}
 				pages={pages}
+				resource='users'
 			>
 				<div className="grid grid-cols-4 w-full gap-5">
 					{instructors &&

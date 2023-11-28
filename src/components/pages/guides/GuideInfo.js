@@ -4,10 +4,10 @@ import Loading from "../../ui/Loading";
 import { FaUser } from "react-icons/fa";
 
 const GuideInfo = ({ activeGuide }) => {
-	const { isLoading } = useSelector(state => state.ui);
+	const { loading } = useSelector(state => state.ui);
 	return (
 		<div className="flex justify-between items-center bg-light-main rounded my-5 p-5">
-			{isLoading ? <Loading />
+			{loading === 'guides' ? <Loading />
 				:
 				<>
 					<div>

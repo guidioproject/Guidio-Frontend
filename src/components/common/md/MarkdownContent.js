@@ -10,11 +10,11 @@ import { useSelector } from "react-redux";
 import Loading from "../../ui/Loading";
 
 const MarkdownContent = ({ content }) => {
-	const { isLoading } = useSelector(state => state.ui);
+	const { loading } = useSelector(state => state.ui);
 	try {
 		return (
 			<div className="w-full h-full p-4 rounded bg-light-main markdown overflow-auto ">
-				{isLoading ? <Loading /> :
+				{loading === 'guides' ? <Loading /> :
 					<div>
 						<ReactMarkdown remarkPlugins={[[remarkGfm]]} rehypePlugins={[[rehypeRaw, rehypeSanitize]]}
 							components={{

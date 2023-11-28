@@ -33,6 +33,7 @@ const Guides = ({ user, isSingleUser }) => {
 				onGet={getGuidesHandler}
 				items={guides}
 				pages={pages}
+				resource='guides'
 			>
 				<div className={`grid ${isSingleUser ? "grid-cols-3" : "grid-cols-4"} w-full gap-5`}>
 					{guides &&
